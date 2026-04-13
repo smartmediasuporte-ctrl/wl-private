@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Cartão — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .card-showcase {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: var(--nav-height);
+      background: linear-gradient(180deg, var(--graphite) 0%, var(--noir) 100%);
+    }
+
+    .card-showcase__inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md);
+      text-align: center;
+    }
+
+    .card-visual {
+      position: relative;
+      margin: var(--space-xl) auto;
+      max-width: 500px;
+    }
+
+    .card-mockup {
+      width: 100%;
+      aspect-ratio: 1.586;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 30%, #1a1a1a 50%, #333 70%, #1a1a1a 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .card-mockup::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(255,255,255,0.03) 45%,
+        rgba(255,255,255,0.05) 50%,
+        rgba(255,255,255,0.03) 55%,
+        transparent 60%
+      );
+      animation: cardShine 6s ease-in-out infinite;
+    }
+
+    @keyframes cardShine {
+      0%, 100% { transform: translateX(-30%) translateY(-30%) rotate(0deg); }
+      50% { transform: translateX(30%) translateY(30%) rotate(0deg); }
+    }
+
+    .card-mockup__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-mockup__logo {
+      font-family: var(--font-display);
+      font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-weight: 400;
+    }
+
+    .card-mockup__badge {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.25rem 0.6rem;
+    }
+
+    .card-mockup__bottom {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-mockup__number {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      color: var(--silver);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-mockup__name {
+      font-family: var(--font-body);
+      font-size: clamp(0.6rem, 1vw, 0.75rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+    }
+
+    .card-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-top: var(--space-xl);
+    }
+
+    .card-detail {
+      background: var(--noir);
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+    }
+
+    .card-detail__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-detail__text {
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 480px) {
+      .card-details { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a><a href="manifesto.html">Manifesto</a><a href="private-members.html">O Círculo</a><a href="founding-members.html">Founding Members</a><a href="journeys.html">Private Journeys</a><a href="acervo.html">Acervo</a><a href="about.html">Sobre</a><a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <section class="card-showcase">
+    <div class="card-showcase__inner">
+      <p class="section__eyebrow reveal" style="margin-bottom: var(--space-md);">O Cartão</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--white); font-style: italic; margin-bottom: var(--space-sm);" class="reveal">
+        Private Members Card
+      </h1>
+      <div class="section__divider reveal"></div>
+      <p class="section__description reveal">
+        Cada membro fundador recebe um cartão numerado individualmente,
+        símbolo de pertencimento ao círculo inicial.
+      </p>
+
+      <!-- Card Mockup -->
+      <div class="card-visual reveal">
+        <div class="card-mockup">
+          <div class="card-mockup__top">
+            <div class="card-mockup__logo">Wine's Life</div>
+            <div class="card-mockup__badge">Private Members</div>
+          </div>
+          <div class="card-mockup__bottom">
+            <div class="card-mockup__number">N° 001</div>
+            <div class="card-mockup__name">Founding Member</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-details reveal">
+        <div class="card-detail">
+          <h4 class="card-detail__title">Numerado</h4>
+          <p class="card-detail__text">Cada cartão carrega um número único e intransferível.</p>
+        </div>
+        <div class="card-detail">
+          <h4 class="card-detail__title">Metálico</h4>
+          <p class="card-detail__text">Produzido em material premium com acabamento sofisticado.</p>
+        </div>
+        <div class="card-detail">
+          <h4 class="card-detail__title">Permanente</h4>
+          <p class="card-detail__text">Símbolo vitalício de pertencimento ao círculo fundador.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: var(--space-xl);" class="reveal">
+        <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand"><img src="images/logo wines semfundo.png" alt="Wine's Life"><p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p></div>
+      <div><h5 class="footer__col-title">O Círculo</h5><div class="footer__links"><a href="manifesto.html">Manifesto</a><a href="private-members.html">O que é</a><a href="founding-members.html">Founding Members</a><a href="benefits.html">Benefícios</a></div></div>
+      <div><h5 class="footer__col-title">Experiências</h5><div class="footer__links"><a href="journeys.html">Private Journeys</a><a href="allocation.html">Allocation Program</a><a href="calendar.html">Calendário</a><a href="partners.html">Founding Partners</a></div></div>
+      <div><h5 class="footer__col-title">Acesso</h5><div class="footer__links"><a href="about.html">Sobre a Wine's Life</a><a href="card.html">O Cartão</a><a href="invite.html">Solicitar Convite</a></div></div>
+    </div>
+    <div class="footer__bottom"><p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p><div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

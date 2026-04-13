@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Círculo — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Editorial Rows — O Círculo */
+    .pm-editorial {
+      display: flex;
+      flex-direction: column;
+      margin: var(--space-xl) 0;
+    }
+
+    .pm-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      background: var(--noir);
+      align-items: stretch;
+    }
+
+    .pm-row:nth-child(even) {
+      direction: rtl;
+    }
+
+    .pm-row:nth-child(even) > * {
+      direction: ltr;
+    }
+
+    .pm-row__image {
+      position: relative;
+      overflow: hidden;
+      background: var(--noir);
+      aspect-ratio: 3 / 4;
+    }
+
+    .pm-row__image-layer {
+      position: absolute;
+      inset: 0;
+      will-change: transform;
+    }
+    .pm-row__image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      will-change: transform, filter;
+    }
+
+    /* B&W filter on all images */
+    .pm-row .pm-row__image img {
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .pm-row__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(10,10,10,0) 0%,
+        rgba(10,10,10,0) 55%,
+        rgba(10,10,10,0.55) 100%
+      );
+      pointer-events: none;
+    }
+
+    .pm-row:nth-child(even) .pm-row__image::after {
+      background: linear-gradient(
+        to left,
+        rgba(10,10,10,0) 0%,
+        rgba(10,10,10,0) 55%,
+        rgba(10,10,10,0.55) 100%
+      );
+    }
+
+    .pm-row__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-xl) clamp(2rem, 5vw, 5rem);
+      background: var(--noir);
+    }
+
+    .pm-row__number {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      color: var(--silver-dark);
+      margin-bottom: var(--space-md);
+      text-transform: uppercase;
+    }
+
+    .pm-row__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: var(--space-md);
+    }
+
+    .pm-row__text {
+      font-size: 0.95rem;
+      color: var(--silver);
+      line-height: 1.9;
+      max-width: 460px;
+    }
+
+    @media (max-width: 768px) {
+      .pm-row {
+        grid-template-columns: 1fr;
+      }
+      .pm-row:nth-child(even) { direction: ltr; }
+      .pm-row__image {
+        aspect-ratio: 4 / 5;
+      }
+      .pm-row__content {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    /* ========== SIDE RAIL ========== */
+    .pm-siderail {
+      position: fixed;
+      left: clamp(1.25rem, 3vw, 2.5rem);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      display: flex;
+      gap: 1rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .pm-siderail.is-visible { opacity: 1; }
+
+    .pm-siderail__line {
+      position: relative;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      height: 240px;
+      align-self: center;
+    }
+    .pm-siderail__progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to bottom, var(--silver), rgba(192, 192, 192, 0.3));
+      height: 0%;
+      transition: height 0.8s cubic-bezier(0.7, 0, 0.1, 1);
+    }
+
+    .pm-siderail__dots {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 240px;
+    }
+    .pm-siderail__dots li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0.3;
+      transform: translateX(-4px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .pm-siderail__dots li.is-active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .pm-siderail__num {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--silver-dark);
+      transition: color 0.6s ease;
+    }
+    .pm-siderail__dots li.is-active .pm-siderail__num {
+      color: var(--white);
+    }
+
+    .pm-siderail__label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--silver-dark);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.6s ease, transform 0.6s ease, color 0.6s ease;
+      white-space: nowrap;
+    }
+    .pm-siderail__dots li.is-active .pm-siderail__label {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--silver-light);
+    }
+
+    @media (max-width: 1100px) {
+      .pm-siderail { display: none; }
+    }
+
+    /* ========== INTRO WORD-BY-WORD ========== */
+    .pm-intro-wbw .wbw-word {
+      display: inline-block;
+      opacity: 0.18;
+      color: var(--silver-dark);
+      transition: opacity 0.5s ease, color 0.5s ease;
+      will-change: opacity, color;
+    }
+    .pm-intro-wbw .wbw-word.is-lit {
+      opacity: 1;
+      color: var(--silver-light);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <!-- Side Rail -->
+  <aside class="pm-siderail" aria-hidden="true">
+    <div class="pm-siderail__line">
+      <div class="pm-siderail__progress"></div>
+    </div>
+    <ol class="pm-siderail__dots">
+      <li><span class="pm-siderail__num">01</span><span class="pm-siderail__label">Seleção</span></li>
+      <li><span class="pm-siderail__num">02</span><span class="pm-siderail__label">Curadoria</span></li>
+      <li><span class="pm-siderail__num">03</span><span class="pm-siderail__label">Prioridade</span></li>
+      <li><span class="pm-siderail__num">04</span><span class="pm-siderail__label">Escassez</span></li>
+      <li><span class="pm-siderail__num">05</span><span class="pm-siderail__label">Pertencimento</span></li>
+      <li><span class="pm-siderail__num">06</span><span class="pm-siderail__label">Conexões</span></li>
+    </ol>
+  </aside>
+
+  <!-- Page Header -->
+  <section class="page-header" style="padding-left: var(--space-md); padding-right: var(--space-md);">
+    <h1 class="section__title reveal" style="font-style: italic;">Wine's Life Private Members</h1>
+    <div class="section__divider reveal"></div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section section--dark" style="padding-bottom: 0;">
+    <div class="section__narrow">
+      <div class="reveal" style="text-align: center; max-width: 640px; margin: 0 auto;">
+        <p data-pm-intro style="line-height: 2; font-size: 1.05rem;">
+          O Private Members foi criado com objetivo de prestigiar os que caminham conosco desde o início, e conceder àqueles que desejam pertencer, uma oportunidade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Statements -->
+  <div class="pm-editorial">
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-01.jpg" alt="Um círculo, não um cadastro">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">01 — Seleção</p>
+        <h3 class="pm-row__title">Um círculo,<br>não um cadastro</h3>
+        <p class="pm-row__text">A entrada acontece por convite ou por manifestação de interesse, analisada individualmente. Cada membro é escolhido por afinidade.</p>
+      </div>
+    </div>
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-02.jpg" alt="Curadoria com autoria">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">02 — Curadoria</p>
+        <h3 class="pm-row__title">Curadoria<br>com autoria</h3>
+        <p class="pm-row__text">Cada experiência nasce de relações íntimas com produtores, chefs, maisons e parceiros que compartilham da mesma exigência. Nada é terceirizado, os contatos são feitos sem intermediários, e tudo é pensado para reunir o grupo em um ambiente de confiança e escassez.</p>
+      </div>
+    </div>
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-03.jpg" alt="Acesso antes de todos">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">03 — Prioridade</p>
+        <h3 class="pm-row__title">Acesso<br>antes de todos</h3>
+        <p class="pm-row__text">As safras raras, os rótulos de alocação, os encontros limitados. Quem pertence ao nosso círculo tem em suas mãos o poder de escolha e de se antecipar nas melhores oportunidades do ramo.</p>
+      </div>
+    </div>
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-04.jpg" alt="Experiências que não se repetem">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">04 — Escassez</p>
+        <h3 class="pm-row__title">Experiências<br>que não se repetem</h3>
+        <p class="pm-row__text">Verticais históricas que ultrapassam uma boa seleção e entregam um conjunto muito provavelmente impossível de repetir.</p>
+      </div>
+    </div>
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-05.jpg" alt="Pertencimento, não participação">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">05 — Pertencimento</p>
+        <h3 class="pm-row__title">Pertencimento,<br>não participação</h3>
+        <p class="pm-row__text">A diferença entre ficar sabendo e estar presente se define neste grupo. Aqui, cada pessoa contribui para a história, e nós a estamos escrevendo.</p>
+      </div>
+    </div>
+
+    <div class="pm-row">
+      <div class="pm-row__image">
+        <img src="images/pm-06.jpg" alt="Recomendações e conexões do círculo">
+      </div>
+      <div class="pm-row__content">
+        <p class="pm-row__number">06 — Conexões</p>
+        <h3 class="pm-row__title">Recomendações<br>do círculo</h3>
+        <p class="pm-row__text">Apenas membros indicam membros. Dentro do círculo, cada indicação — seja um rótulo, um restaurante, um profissional ou um destino — carrega o peso e a confiança de quem a faz. Uma rede onde as melhores portas se abrem por dentro.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Closing + CTA -->
+  <section class="section section--lg section--dark" style="text-align: center;">
+    <div class="reveal" style="max-width: 560px; margin: 0 auto var(--space-lg);">
+      <p style="color: var(--silver); line-height: 2; font-style: italic; font-family: var(--font-display); font-size: 1.2rem;">
+        A qualidade das experiências depende diretamente da qualidade das pessoas que participam.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <a href="founding-members.html" class="btn btn--outline" style="margin-right: var(--space-sm);">Founding Members</a>
+      <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links">
+          <a href="manifesto.html">Manifesto</a>
+          <a href="private-members.html">O que é</a>
+          <a href="founding-members.html">Founding Members</a>
+          <a href="benefits.html">Benefícios</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links">
+          <a href="journeys.html">Private Journeys</a>
+          <a href="allocation.html">Allocation Program</a>
+          <a href="calendar.html">Calendário</a>
+          <a href="partners.html">Founding Partners</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre a Wine's Life</a>
+          <a href="card.html">O Cartão</a>
+          <a href="invite.html">Solicitar Convite</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+
+  <!-- ========== O CÍRCULO — PAGE-SPECIFIC ANIMATIONS ========== -->
+  <script>
+    window.addEventListener('load', function() {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+      // ========== 0. CUSTOM IMAGE ANIMATIONS (reveal + kenburns + mouse parallax) ==========
+      const allPmRows = document.querySelectorAll('.pm-row');
+      allPmRows.forEach(function(row, i) {
+        const imageWrapper = row.querySelector('.pm-row__image');
+        if (!imageWrapper) return;
+        const img = imageWrapper.querySelector('img');
+        if (!img) return;
+
+        // Wrap img in a parallax layer so mouse parallax and ken burns don't conflict
+        const layer = document.createElement('div');
+        layer.className = 'pm-row__image-layer';
+        imageWrapper.insertBefore(layer, img);
+        layer.appendChild(img);
+
+        // Initial state — blurred and slightly zoomed
+        gsap.set(img, { filter: 'blur(24px) grayscale(1) contrast(1.05)', scale: 1.15, opacity: 0 });
+
+        // REVEAL FROM BLUR — triggers on scroll into view
+        gsap.to(img, {
+          filter: 'blur(0px) grayscale(1) contrast(1.05)',
+          scale: 1,
+          opacity: 1,
+          duration: 1.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: row,
+            start: 'top 78%',
+            toggleActions: 'play none none none',
+            onEnter: function() {
+              // KEN BURNS — start after reveal, slow continuous zoom + pan
+              gsap.to(img, {
+                scale: 1.08,
+                xPercent: i % 2 === 0 ? 2 : -2,
+                yPercent: -1.5,
+                duration: 14,
+                ease: 'sine.inOut',
+                yoyo: true,
+                repeat: -1,
+                delay: 1.9,
+              });
+            }
+          }
+        });
+
+        // MOUSE MICRO-PARALLAX (desktop ≥1024px only)
+        if (window.innerWidth > 1024) {
+          let targetX = 0, targetY = 0;
+          let currentX = 0, currentY = 0;
+          let rafId = null;
+          let isHovering = false;
+
+          imageWrapper.addEventListener('mouseenter', function() {
+            isHovering = true;
+            if (!rafId) tick();
+          });
+
+          imageWrapper.addEventListener('mousemove', function(e) {
+            const rect = imageWrapper.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            targetX = x * 18;
+            targetY = y * 18;
+          });
+
+          imageWrapper.addEventListener('mouseleave', function() {
+            isHovering = false;
+            targetX = 0;
+            targetY = 0;
+          });
+
+          function tick() {
+            currentX += (targetX - currentX) * 0.08;
+            currentY += (targetY - currentY) * 0.08;
+            layer.style.transform = 'translate3d(' + currentX.toFixed(2) + 'px,' + currentY.toFixed(2) + 'px,0)';
+
+            if (isHovering || Math.abs(currentX) > 0.05 || Math.abs(currentY) > 0.05) {
+              rafId = requestAnimationFrame(tick);
+            } else {
+              layer.style.transform = '';
+              rafId = null;
+            }
+          }
+        }
+
+        // CONTENT STAGGER (replaces what was removed from animations.js)
+        const content = row.querySelector('.pm-row__content');
+        if (content) {
+          gsap.fromTo(content.children,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1, y: 0,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: row,
+                start: 'top 75%',
+                toggleActions: 'play none none none',
+              }
+            }
+          );
+        }
+      });
+
+      // ========== 1. SIDE RAIL ==========
+      const siderail = document.querySelector('.pm-siderail');
+      const siderailDots = document.querySelectorAll('.pm-siderail__dots li');
+      const siderailProgress = document.querySelector('.pm-siderail__progress');
+      const pmRows = document.querySelectorAll('.pm-row');
+      const pmEditorial = document.querySelector('.pm-editorial');
+
+      if (siderail && pmEditorial && pmRows.length > 0) {
+        // Show/hide siderail based on editorial section visibility
+        ScrollTrigger.create({
+          trigger: pmEditorial,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          onEnter: function() { siderail.classList.add('is-visible'); },
+          onEnterBack: function() { siderail.classList.add('is-visible'); },
+          onLeave: function() { siderail.classList.remove('is-visible'); },
+          onLeaveBack: function() { siderail.classList.remove('is-visible'); },
+        });
+
+        // Activate dot as each row passes center
+        pmRows.forEach(function(row, i) {
+          ScrollTrigger.create({
+            trigger: row,
+            start: 'top 55%',
+            end: 'bottom 45%',
+            onToggle: function(self) {
+              if (self.isActive) {
+                siderailDots.forEach(function(d, j) {
+                  d.classList.toggle('is-active', j === i);
+                });
+                if (siderailProgress) {
+                  const pct = ((i + 1) / pmRows.length) * 100;
+                  siderailProgress.style.height = pct + '%';
+                }
+              }
+            }
+          });
+        });
+      }
+
+      // ========== 2. NUMBER LETTER-SPACING REVEAL ==========
+      document.querySelectorAll('.pm-row__number').forEach(function(num) {
+        gsap.fromTo(num,
+          { letterSpacing: '0.08em' },
+          {
+            letterSpacing: '0.35em',
+            duration: 1.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: num,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      });
+
+      // ========== 3. INTRO WORD-BY-WORD ==========
+      const intro = document.querySelector('[data-pm-intro]');
+      if (intro) {
+        const text = intro.textContent.trim();
+        const words = text.split(/\s+/);
+        intro.innerHTML = words.map(function(w) {
+          return '<span class="wbw-word">' + w + '</span>';
+        }).join(' ');
+        intro.classList.add('pm-intro-wbw');
+
+        const wbwWords = intro.querySelectorAll('.wbw-word');
+        const totalWords = wbwWords.length;
+
+        ScrollTrigger.create({
+          trigger: intro,
+          start: 'top 85%',
+          end: 'bottom 45%',
+          scrub: 0.6,
+          onUpdate: function(self) {
+            const active = Math.floor(self.progress * totalWords * 1.15);
+            wbwWords.forEach(function(w, i) {
+              w.classList.toggle('is-lit', i < active);
+            });
+          }
+        });
+      }
+
+      ScrollTrigger.refresh();
+    });
+  </script>
+</body>
+</html>

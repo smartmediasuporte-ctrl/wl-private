@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manifesto — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .manifesto-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: var(--nav-height);
+      background: linear-gradient(180deg, var(--graphite) 0%, var(--noir) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, var(--silver-dark), transparent);
+    }
+
+    .manifesto-body {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-md);
+    }
+
+    .manifesto-body p {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+      color: var(--silver-light);
+      line-height: 2;
+      margin-bottom: var(--space-md);
+      font-weight: 300;
+    }
+
+    .manifesto-body p.lead {
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      color: var(--white);
+      font-style: italic;
+    }
+
+    .manifesto-body .separator {
+      width: 40px;
+      height: 1px;
+      background: var(--silver-dark);
+      margin: var(--space-lg) 0;
+    }
+
+    .manifesto-closing {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md) var(--space-2xl);
+    }
+
+    .manifesto-closing p {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.5;
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="manifesto-hero">
+    <div style="padding: var(--space-xl) var(--space-md);">
+      <p class="section__eyebrow reveal" style="margin-bottom: var(--space-md);">Manifesto</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 300; color: var(--white); font-style: italic; line-height: 1.2;" class="reveal">
+        Da água<br>para o vinho
+      </h1>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <div class="manifesto-body">
+
+    <p class="lead reveal">
+      Tudo começou com o vinho e o que ele representa.
+    </p>
+
+    <p class="reveal">
+      Não como um produto, mas como símbolo. O vinho não é somente um pretexto,
+      é uma ponte. Um convite silencioso para que aqueles que vivem e pensam de
+      forma parecida possam se encontrar e compartilhar.
+    </p>
+
+    <p class="reveal">
+      A Wine's Life nasceu dessa crença. Da ideia de que uma garrafa aberta
+      no momento certo, entre as pessoas certas, pode se transformar em história.
+    </p>
+
+    <div class="separator reveal"></div>
+
+    <p class="reveal">
+      Ao longo dos anos, construímos algo que não existe nesse ramo. Fizemos
+      verticais históricas com safras que atravessaram décadas, viajamos e
+      conhecemos lugares onde a maioria das pessoas jamais terá o prazer e a
+      honra de visitar, e o mais importante, possibilitamos o encontro entre
+      desconhecidos que se tornaram verdadeiros amigos.
+    </p>
+
+    <p class="reveal">
+      Em cada uma dessas experiências, algo se repetia: além das mesmas pessoas
+      voltarem, elas traziam seus amigos mais próximos. Pediam para participar
+      antes de todos. Queriam fazer parte de algo que ainda não tinha nome.
+    </p>
+
+    <div class="separator reveal"></div>
+
+    <p class="reveal">
+      Agora tem.
+    </p>
+
+    <p class="lead reveal">
+      O Wine's Life Private Members é a formalização de um grupo seleto que já
+      existia em sigilo. A diferença é que aqui ninguém entra por acaso. Entra
+      porque caminhou conosco, foi apresentado por alguém que caminhou, ou
+      demonstrou com mais do que palavras que deseja caminhar.
+    </p>
+
+    <p class="reveal" style="color: var(--silver);">
+      O Private Members não promete nada além da certeza de que, quando algo
+      extraordinário acontecer, você será o primeiro a saber, e um dos poucos
+      a estar lá.
+    </p>
+
+  </div>
+
+  <!-- Closing -->
+  <div class="manifesto-closing">
+    <div class="manifesto-lines">
+      <p>O vinho une</p>
+      <p>o tempo constrói</p>
+      <p>as experiências revelam</p>
+      <p>e nossa sociedade, prospera</p>
+      <p><strong>Aqui nasce o Wine's Life Private Members</strong></p>
+    </div>
+    <div style="margin-top: var(--space-xl);">
+      <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links">
+          <a href="manifesto.html">Manifesto</a>
+          <a href="private-members.html">O que é</a>
+          <a href="founding-members.html">Founding Members</a>
+          <a href="benefits.html">Benefícios</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links">
+          <a href="journeys.html">Private Journeys</a>
+          <a href="allocation.html">Allocation Program</a>
+          <a href="calendar.html">Calendário</a>
+          <a href="partners.html">Founding Partners</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre a Wine's Life</a>
+          <a href="card.html">O Cartão</a>
+          <a href="invite.html">Solicitar Convite</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

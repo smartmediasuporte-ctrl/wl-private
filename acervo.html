@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acervo — Wine's Life Private Members</title>
+  <meta name="description" content="O acervo das verticais e experiências realizadas pela Wine's Life — 29 experiências, 479 safras degustadas, em diálogo direto com enólogos e nos cenários mais sofisticados do Brasil.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ========== ACERVO ========== */
+    .acervo-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      max-width: 1100px;
+      margin: 0 auto var(--space-xl);
+      padding: var(--space-xl) var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .acervo-stat {
+      text-align: center;
+    }
+    .acervo-stat__number {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+      font-style: italic;
+    }
+    .acervo-stat__label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      font-weight: 300;
+    }
+    @media (max-width: 768px) {
+      .acervo-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+
+    .acervo-index {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .acervo-year {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-md);
+      margin: calc(var(--space-xl) * 1.4) 0 var(--space-md);
+    }
+    .acervo-year:first-child {
+      margin-top: var(--space-lg);
+    }
+    .acervo-year__num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--silver-light);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      font-style: italic;
+    }
+    .acervo-year__line {
+      flex: 1;
+      height: 1px;
+      background: var(--silver-dark);
+      opacity: 0.35;
+    }
+
+    .acervo-entry {
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: padding-left 0.6s cubic-bezier(.2,.7,.2,1), background 0.6s ease;
+      display: grid;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .acervo-entry--with-thumb {
+      grid-template-columns: 140px 1fr;
+    }
+    .acervo-entry--no-thumb {
+      grid-template-columns: 1fr;
+    }
+    .acervo-entry:hover {
+      padding-left: var(--space-md);
+      background: rgba(255, 255, 255, 0.012);
+    }
+
+    .acervo-entry__thumb {
+      all: unset;
+      cursor: pointer;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #0a0a0a;
+      display: block;
+      position: relative;
+    }
+    .acervo-entry__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.85) contrast(1.05) brightness(0.92);
+      transition: filter 1s cubic-bezier(.2,.7,.2,1), transform 1.4s cubic-bezier(.2,.7,.2,1);
+      will-change: filter, transform;
+    }
+    .acervo-entry:hover .acervo-entry__thumb img {
+      filter: grayscale(0) contrast(1) brightness(1);
+      transform: scale(1.06);
+    }
+    .acervo-entry__thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0);
+      transition: border-color 0.6s ease;
+      pointer-events: none;
+    }
+    .acervo-entry:hover .acervo-entry__thumb::after {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .acervo-entry__content {
+      min-width: 0;
+    }
+    .acervo-entry__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      margin-bottom: 0.4rem;
+    }
+    .acervo-entry__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+      font-style: italic;
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .acervo-entry__date {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-weight: 300;
+    }
+    .acervo-entry__count {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--silver);
+      margin: 0 0 0.3rem;
+      font-weight: 300;
+    }
+    .acervo-entry__byline {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      color: var(--silver);
+      font-style: italic;
+      margin: 0 0 0.3rem;
+    }
+    .acervo-entry__venue {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin: 0;
+      font-weight: 300;
+    }
+
+    @media (max-width: 640px) {
+      .acervo-entry--with-thumb {
+        grid-template-columns: 100px 1fr;
+        gap: var(--space-md);
+      }
+      .acervo-entry__head {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .acervo-entry:hover {
+        padding-left: var(--space-sm);
+      }
+    }
+
+    /* ========== LIGHTBOX ========== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox__inner {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+      transform: scale(0.96);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(.2,.7,.2,1), opacity 0.6s ease 0.1s;
+    }
+    .lightbox.is-open .lightbox__inner {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .lightbox__image {
+      max-width: 100%;
+      max-height: 76vh;
+      object-fit: contain;
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+      display: block;
+    }
+    .lightbox__caption {
+      text-align: center;
+      max-width: 680px;
+    }
+    .lightbox__title {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--white);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-weight: 400;
+      margin: 0 0 var(--space-xs);
+    }
+    .lightbox__meta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin: 0;
+      font-weight: 300;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      font-weight: 300;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      font-family: var(--font-body);
+      line-height: 1;
+    }
+    .lightbox__close:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: rotate(90deg);
+    }
+
+    /* ========== ENTRY STAGGER REVEAL ========== */
+    .acervo-entry.reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+    }
+    .acervo-entry.reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .acervo-year.reveal {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+    }
+    .acervo-year.reveal.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <section class="page-header" style="padding-left: var(--space-md); padding-right: var(--space-md);">
+    <p class="section__eyebrow reveal">Acervo</p>
+    <h1 class="section__title reveal" style="font-style: italic;">Verticais &amp; Experiências</h1>
+    <div class="section__divider reveal"></div>
+    <p class="section__description reveal">
+      Um arquivo das degustações reunidas pela Wine's Life — ícones do vinho
+      mundial, em diálogo direto com enólogos, diretores e fundadores, nos
+      cenários mais sofisticados do Brasil.
+    </p>
+  </section>
+
+  <section class="section section--lg section--dark">
+
+    <!-- Stats -->
+    <div class="acervo-stats reveal">
+      <div class="acervo-stat">
+        <div class="acervo-stat__number" data-count="29">0</div>
+        <p class="acervo-stat__label">Experiências realizadas</p>
+      </div>
+      <div class="acervo-stat">
+        <div class="acervo-stat__number" data-count="479">0</div>
+        <p class="acervo-stat__label">Safras degustadas</p>
+      </div>
+      <div class="acervo-stat">
+        <div class="acervo-stat__number" data-count="12">0</div>
+        <p class="acervo-stat__label">Cenários</p>
+      </div>
+      <div class="acervo-stat">
+        <div class="acervo-stat__number" data-count="8">0</div>
+        <p class="acervo-stat__label">Anos de trajetória</p>
+      </div>
+    </div>
+
+    <!-- Index Editorial -->
+    <div class="acervo-index">
+
+      <!-- ========== 2026 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2026</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Stag's Leap Wine Cellars · Cask 23</h3>
+            <span class="acervo-entry__date">Abril</span>
+          </header>
+          <p class="acervo-entry__count">16 safras · 1991 — 2014</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <!-- ========== 2025 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2025</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/romanee-conti-nov2025.jpg" alt="Vertical Romanée-Conti" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Romanée-Conti</h3>
+            <span class="acervo-entry__date">Novembro</span>
+          </header>
+          <p class="acervo-entry__count">12 safras · 1967 — 1988</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/drc-romanee-conti-ago2025.jpg" alt="DRC Experience Romanée-Conti" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">DRC Experience · Romanée-Conti</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">11 safras · 1986 — 2019</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/gandolini-costantino-ago2025.jpg" alt="Vertical Gandolini & Costantino" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Gandolini &amp; Costantino</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">Gandolini 9 safras · Costantino 3 safras · 2011 — 2013</p>
+          <p class="acervo-entry__byline">Apresentação: Stefano Gandolini (enólogo)</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/don-melchor-ago2025.jpg" alt="Don Melchor Experience" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Don Melchor Experience</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">2 safras · 2021 e 2022</p>
+          <p class="acervo-entry__byline">Apresentação: Enrique Tirado (enólogo)</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/rare-champagne-ago2025.jpg" alt="Vertical Rare Champagne" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Rare Champagne</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">5 safras · 1997 — 2013</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/champagne-krug-jul2025.jpg" alt="Champagne Experience Krug" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Champagne Experience · Krug</h3>
+            <span class="acervo-entry__date">Julho</span>
+          </header>
+          <p class="acervo-entry__count">Krug Champagne</p>
+          <p class="acervo-entry__byline">Apresentação: Manuel Reman (CEO Krug)</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2025/margaux-jun2025.jpg" alt="Vertical Château Margaux" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Château Margaux</h3>
+            <span class="acervo-entry__date">Junho</span>
+          </header>
+          <p class="acervo-entry__count">41 safras · 1978 — 2018</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Seña</h3>
+            <span class="acervo-entry__date">Maio</span>
+          </header>
+          <p class="acervo-entry__count">12 safras · 2009 — 2021</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Allard Oscar Freire, SP</p>
+        </div>
+      </article>
+
+      <!-- ========== 2024 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2024</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2024/champagne-dez2024.jpg" alt="Champagne Experience" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Champagne Experience</h3>
+            <span class="acervo-entry__date">Dezembro</span>
+          </header>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Petrus Beneficente</h3>
+            <span class="acervo-entry__date">Novembro</span>
+          </header>
+          <p class="acervo-entry__count">2 safras Double Magnum · 1994 e 1995</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Valbuena 5°</h3>
+            <span class="acervo-entry__date">Novembro</span>
+          </header>
+          <p class="acervo-entry__count">9 safras · 1998 — 2018</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Alfaiataria Valdir Camargo, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2024/petrus-out2024.jpg" alt="Vertical Petrus" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Petrus</h3>
+            <span class="acervo-entry__date">Outubro</span>
+          </header>
+          <p class="acervo-entry__count">9 safras · 1948 — 1994</p>
+          <p class="acervo-entry__byline">Apresentação: Flávio Souza</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2024/petrus-ago2024.jpg" alt="Vertical Petrus" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Petrus</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">13 safras · 1948 — 2014</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2024/tignanello-jun2024.jpg" alt="Vertical Tignanello" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Tignanello</h3>
+            <span class="acervo-entry__date">Junho</span>
+          </header>
+          <p class="acervo-entry__count">16 safras · 1987 — 2020</p>
+          <p class="acervo-entry__byline">Apresentação: Matheus Mota (Embaixador Antinori)</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2024/pera-manca-mai2024.jpg" alt="Vertical Pêra-Manca" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Pêra-Manca</h3>
+            <span class="acervo-entry__date">Maio</span>
+          </header>
+          <p class="acervo-entry__count">10 safras · 1994 — 2015</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <!-- ========== 2023 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2023</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Gandolini</h3>
+            <span class="acervo-entry__date">Dezembro</span>
+          </header>
+          <p class="acervo-entry__count">7 safras · 2011 — 2019</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2023/silver-oak-mar2023.jpg" alt="Vertical Silver Oak" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Silver Oak</h3>
+            <span class="acervo-entry__date">Março</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 40 safras · 1979 — 2018</p>
+          <p class="acervo-entry__byline">Apresentação: Nate Weis (enólogo chefe)</p>
+          <p class="acervo-entry__venue">Restaurante Miró, SP</p>
+        </div>
+      </article>
+
+      <!-- ========== 2022 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2022</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2022/chateau-angelus-set2022.jpg" alt="Vertical Château Angélus" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Château Angélus</h3>
+            <span class="acervo-entry__date">Setembro</span>
+          </header>
+          <p class="acervo-entry__count">60 safras · 1949 — 2019</p>
+          <p class="acervo-entry__byline">Apresentação: Clément Puech (Diretor Internacional)</p>
+          <p class="acervo-entry__venue">Hotel Rosewood, SP</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--no-thumb reveal">
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Gandolini</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">7 safras · 2011 — 2018</p>
+          <p class="acervo-entry__byline">Apresentação: Stefano Gandolini (enólogo)</p>
+          <p class="acervo-entry__venue">Copacabana Palace, RJ</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2022/sena-mai2022.jpg" alt="Vertical Seña" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Seña</h3>
+            <span class="acervo-entry__date">Maio</span>
+          </header>
+          <p class="acervo-entry__count">11 safras · 2009 — 2019</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Lago Restaurante, Brasília</p>
+        </div>
+      </article>
+
+      <!-- ========== 2020 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2020</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2020/epu-almaviva-fev2020.jpg" alt="Vertical Epu de Almaviva" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Epu de Almaviva</h3>
+            <span class="acervo-entry__date">Fevereiro</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 11 safras · 2006 — 2016</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Restaurante Bartolomeu, Brasília</p>
+        </div>
+      </article>
+
+      <!-- ========== 2019 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2019</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2019/don-melchor-dez2019.jpg" alt="Vertical Don Melchor" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Don Melchor</h3>
+            <span class="acervo-entry__date">Dezembro</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 31 safras · 1987 — 2017</p>
+          <p class="acervo-entry__byline">Apresentação: Enrique Tirado (enólogo)</p>
+          <p class="acervo-entry__venue">Lassù Ristorante, SP</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2019/projeto-v3-out2019.jpg" alt="Projeto V3 Vinho Voz e Violão" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Projeto V3 · Vinho, Voz e Violão</h3>
+            <span class="acervo-entry__date">Outubro</span>
+          </header>
+          <p class="acervo-entry__count">Ícones chilenos · Almaviva, Clos Apalta, Seña, Don Melchor</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Cidade Matarazzo, SP</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2019/sassicaia-ago2019.webp" alt="Vertical Sassicaia" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Sassicaia</h3>
+            <span class="acervo-entry__date">Agosto</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 47 safras · 1968 — 2016</p>
+          <p class="acervo-entry__byline">Apresentação: Marcelo Copello</p>
+          <p class="acervo-entry__venue">Copacabana Palace, RJ</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2019/opus-one-fev2019.webp" alt="Vertical Opus One" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Opus One</h3>
+            <span class="acervo-entry__date">Fevereiro</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 37 safras · 1979 — 2015</p>
+          <p class="acervo-entry__byline">Apresentação: David Pearson (CEO) e Laurent Delassus (VPM)</p>
+          <p class="acervo-entry__venue">Palácio Tangará, SP</p>
+        </div>
+      </article>
+
+      <!-- ========== 2018 ========== -->
+      <div class="acervo-year reveal">
+        <span class="acervo-year__num">2018</span>
+        <div class="acervo-year__line"></div>
+      </div>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2018/valbuena-impares-set2018.webp" alt="Vertical Valbuena 5° ímpares" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Valbuena 5°</h3>
+            <span class="acervo-entry__date">Setembro</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 20 safras ímpares · 1975 — 2013</p>
+          <p class="acervo-entry__byline">Apresentação: Fernando Brito</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2018/valbuena-pares-set2018.jpg" alt="Vertical Valbuena 5° pares" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Valbuena 5°</h3>
+            <span class="acervo-entry__date">Setembro</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 18 safras pares · 1976 — 2012</p>
+          <p class="acervo-entry__byline">Apresentação: Marcelo Copello</p>
+          <p class="acervo-entry__venue">Hotel Fasano, SP</p>
+        </div>
+      </article>
+
+      <article class="acervo-entry acervo-entry--with-thumb reveal">
+        <button class="acervo-entry__thumb" type="button">
+          <img src="images/2018/almaviva-mar2018.webp" alt="Vertical Almaviva" loading="lazy">
+        </button>
+        <div class="acervo-entry__content">
+          <header class="acervo-entry__head">
+            <h3 class="acervo-entry__title">Vertical Almaviva</h3>
+            <span class="acervo-entry__date">Março</span>
+          </header>
+          <p class="acervo-entry__count">Todas as 20 safras · 1996 — 2015</p>
+          <p class="acervo-entry__byline">Apresentação: Michel Friou (enólogo)</p>
+          <p class="acervo-entry__venue">Brasília, DF</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align: center; margin-top: calc(var(--space-xl) * 1.6); padding: 0 var(--space-md);" class="reveal">
+      <p style="font-family: var(--font-display); font-style: italic; color: var(--silver-light); font-size: clamp(1.05rem, 1.6vw, 1.25rem); margin-bottom: var(--space-md); line-height: 1.7;">
+        As próximas experiências estão sendo curadas.
+      </p>
+      <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+    </div>
+
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" type="button" aria-label="Fechar">×</button>
+    <div class="lightbox__inner">
+      <img class="lightbox__image" src="" alt="">
+      <div class="lightbox__caption">
+        <h4 class="lightbox__title"></h4>
+        <p class="lightbox__meta"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand"><img src="images/logo wines semfundo.png" alt="Wine's Life"><p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p></div>
+      <div><h5 class="footer__col-title">O Círculo</h5><div class="footer__links"><a href="manifesto.html">Manifesto</a><a href="private-members.html">O que é</a><a href="founding-members.html">Founding Members</a><a href="benefits.html">Benefícios</a></div></div>
+      <div><h5 class="footer__col-title">Experiências</h5><div class="footer__links"><a href="journeys.html">Private Journeys</a><a href="acervo.html">Acervo</a><a href="allocation.html">Allocation Program</a><a href="calendar.html">Calendário</a><a href="partners.html">Founding Partners</a></div></div>
+      <div><h5 class="footer__col-title">Acesso</h5><div class="footer__links"><a href="about.html">Sobre a Wine's Life</a><a href="card.html">O Cartão</a><a href="invite.html">Solicitar Convite</a></div></div>
+    </div>
+    <div class="footer__bottom"><p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p><div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <!-- Lightbox + Stagger Logic -->
+  <script>
+    (function() {
+      // ========== LIGHTBOX ==========
+      const lightbox = document.getElementById('lightbox');
+      const lbImage = lightbox.querySelector('.lightbox__image');
+      const lbTitle = lightbox.querySelector('.lightbox__title');
+      const lbMeta = lightbox.querySelector('.lightbox__meta');
+      const lbClose = lightbox.querySelector('.lightbox__close');
+
+      function openLightbox(imgSrc, title, meta) {
+        lbImage.src = imgSrc;
+        lbImage.alt = title;
+        lbTitle.textContent = title;
+        lbMeta.textContent = meta;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.acervo-entry__thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          const img = thumb.querySelector('img');
+          const entry = thumb.closest('.acervo-entry');
+          const title = entry.querySelector('.acervo-entry__title').textContent.trim();
+          const date = entry.querySelector('.acervo-entry__date').textContent.trim();
+          const venueEl = entry.querySelector('.acervo-entry__venue');
+          const venue = venueEl ? venueEl.textContent.trim() : '';
+          const meta = venue ? `${date} · ${venue}` : date;
+          openLightbox(img.src, title, meta);
+        });
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+      });
+
+      // ========== STAGGER REVEAL ==========
+      // Adiciona delay incremental nas entries quando entram em vista
+      const entries = document.querySelectorAll('.acervo-entry');
+      let currentBatch = [];
+      let lastY = -Infinity;
+
+      entries.forEach((entry, i) => {
+        // Stagger leve baseado no índice de proximidade
+        entry.style.transitionDelay = `${(i % 4) * 0.08}s`;
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitar Convite — Wine's Life Private Members</title>
+  <meta name="description" content="Manifeste seu interesse em fazer parte do Wine's Life Private Members.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .invite-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .invite-hero {
+      padding-top: calc(var(--nav-height) + var(--space-xl));
+      padding-bottom: var(--space-lg);
+      text-align: center;
+      background: linear-gradient(180deg, var(--graphite) 0%, var(--noir) 100%);
+      padding-left: var(--space-md);
+      padding-right: var(--space-md);
+    }
+
+    .invite-content {
+      flex: 1;
+      padding: var(--space-xl) var(--space-md);
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .invite-note {
+      text-align: center;
+      padding: var(--space-lg);
+      border: 1px solid rgba(255,255,255,0.04);
+      background: var(--graphite);
+      margin-bottom: var(--space-xl);
+    }
+
+    .invite-note p {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--silver-light);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .form__section-title {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-bottom: var(--space-md);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .form__consent {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .form__consent input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border: 1px solid var(--silver-dark);
+      background: var(--graphite);
+      cursor: pointer;
+      margin-top: 2px;
+      position: relative;
+    }
+
+    .form__consent input[type="checkbox"]:checked {
+      border-color: var(--platinum);
+    }
+
+    .form__consent input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 10px;
+      height: 10px;
+      background: var(--platinum);
+    }
+
+    .form__consent label {
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 1.6;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+
+    <div class="nav__toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="benefits.html">Benefícios</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+  </div>
+
+  <div class="invite-page">
+
+    <!-- Header -->
+    <div class="invite-hero">
+      <p class="section__eyebrow reveal">Manifestar Interesse</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--white); margin-bottom: var(--space-md); font-style: italic;" class="reveal">
+        Solicitar Convite
+      </h1>
+      <div class="section__divider reveal"></div>
+      <p class="section__description reveal" style="margin-bottom: 0;">
+        O Wine's Life Private Members não é aberto ao público.<br>
+        A entrada acontece por convite ou por manifestação de interesse.
+      </p>
+    </div>
+
+    <!-- Form -->
+    <div class="invite-content">
+
+      <div class="invite-note reveal">
+        <p>
+          Preencha o formulário abaixo para que possamos conhecê-lo melhor.
+          Entraremos em contato pessoalmente.
+        </p>
+      </div>
+
+      <form class="form reveal">
+
+        <p class="form__section-title">Informações Pessoais</p>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="firstName">Nome</label>
+            <input class="form__input" type="text" id="firstName" name="firstName" placeholder="Seu nome" required>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="lastName">Sobrenome</label>
+            <input class="form__input" type="text" id="lastName" name="lastName" placeholder="Seu sobrenome" required>
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="email">E-mail</label>
+            <input class="form__input" type="email" id="email" name="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="phone">Telefone</label>
+            <input class="form__input" type="tel" id="phone" name="phone" placeholder="+55 (00) 00000-0000">
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="city">Cidade</label>
+          <input class="form__input" type="text" id="city" name="city" placeholder="Sua cidade">
+        </div>
+
+        <p class="form__section-title" style="margin-top: var(--space-lg);">Sobre Você</p>
+
+        <div class="form__group">
+          <label class="form__label" for="profession">Profissão</label>
+          <input class="form__input" type="text" id="profession" name="profession" placeholder="Sua área de atuação">
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="interest">O que mais lhe interessa no Private Members?</label>
+          <select class="form__select" id="interest" name="interest">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option value="experiences">Experiências e verticais</option>
+            <option value="wines">Acesso a vinhos raros</option>
+            <option value="journeys">Viagens internacionais</option>
+            <option value="community">Pertencimento à comunidade</option>
+            <option value="gastronomy">Gastronomia e jantares</option>
+            <option value="all">Tudo acima</option>
+          </select>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="referral">Como conheceu a Wine's Life?</label>
+          <select class="form__select" id="referral" name="referral">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option value="event">Participei de uma experiência</option>
+            <option value="referral">Indicação de um membro</option>
+            <option value="social">Redes sociais</option>
+            <option value="press">Imprensa</option>
+            <option value="other">Outro</option>
+          </select>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="message">Mensagem (opcional)</label>
+          <textarea class="form__textarea" id="message" name="message" placeholder="Conte-nos um pouco sobre o que espera do círculo..."></textarea>
+        </div>
+
+        <div class="form__consent">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">
+            Autorizo o Wine's Life a entrar em contato através dos dados fornecidos.
+            Suas informações são tratadas com total confidencialidade.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn--primary form__submit">
+          Manifestar Interesse
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links">
+          <a href="manifesto.html">Manifesto</a>
+          <a href="private-members.html">O que é</a>
+          <a href="founding-members.html">Founding Members</a>
+          <a href="benefits.html">Benefícios</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links">
+          <a href="journeys.html">Private Journeys</a>
+          <a href="allocation.html">Allocation Program</a>
+          <a href="calendar.html">Calendário</a>
+          <a href="partners.html">Founding Partners</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre a Wine's Life</a>
+          <a href="card.html">O Cartão</a>
+          <a href="invite.html">Solicitar Convite</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

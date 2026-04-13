@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founding Partners — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .partner-item {
+      background: var(--noir);
+      padding: var(--space-xl) var(--space-lg);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+      transition: background var(--duration-medium) var(--ease-out);
+    }
+
+    .partner-item:hover {
+      background: var(--graphite);
+    }
+
+    .partner-item__logo {
+      height: 200px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      margin-bottom: var(--space-sm);
+      opacity: 0.6;
+      filter: grayscale(100%) brightness(1.8);
+      transition: all 0.4s ease;
+    }
+
+    .partner-item:hover .partner-item__logo {
+      opacity: 1;
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .partner-item__name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .partner-item__category {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+    }
+
+    @media (max-width: 768px) {
+      .partner-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .partner-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a><a href="manifesto.html">Manifesto</a><a href="private-members.html">O Círculo</a><a href="founding-members.html">Founding Members</a><a href="journeys.html">Private Journeys</a><a href="acervo.html">Acervo</a><a href="about.html">Sobre</a><a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <section class="page-header" style="padding-left: var(--space-md); padding-right: var(--space-md);">
+    <p class="section__eyebrow reveal">Founding Partners Circle</p>
+    <h1 class="section__title reveal" style="font-style: italic;">Ordem e Fundação</h1>
+    <div class="section__divider reveal"></div>
+    <p class="section__description reveal">
+      Marcas, casas e famílias parceiras que participam da construção institucional
+      do Wine's Life Private Members desde a sua fundação.
+    </p>
+  </section>
+
+  <section class="section section--lg section--dark">
+    <div class="section__inner" style="max-width: 1000px; margin: 0 auto;">
+
+      <div class="partner-grid reveal">
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/12.png" alt="Valdir Camargo" class="partner-item__logo">
+          <p class="partner-item__category">Tailoring</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/13.png" alt="4Boss" class="partner-item__logo">
+          <p class="partner-item__category">Exclusive Cars</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/14.png" alt="DIO" class="partner-item__logo">
+          <p class="partner-item__category">Luxury Watches</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/15.png" alt="TRK" class="partner-item__logo">
+          <p class="partner-item__category">Real Estate</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/16.png" alt="Mendes Leão" class="partner-item__logo">
+          <p class="partner-item__category">Real Estate</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/17.png" alt="Bitar Aviação" class="partner-item__logo">
+          <p class="partner-item__category">Private Jetsharing</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/18.png" alt="BTG Pactual" class="partner-item__logo">
+          <p class="partner-item__category">Wealth Management</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/19.png" alt="Tarso" class="partner-item__logo">
+          <p class="partner-item__category">Dining</p>
+        </div>
+        <div class="partner-item">
+          <img src="images/LOGOS WINES/LOGOS WINES.png" alt="Six" class="partner-item__logo">
+          <p class="partner-item__category">Wellness & Gym</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-xl);" class="reveal">
+        <p style="font-size: 0.85rem; color: var(--silver); margin-bottom: var(--space-md); line-height: 1.8;">
+          Interesse em fazer parte do Founding Partners Circle?
+        </p>
+        <a href="invite.html" class="btn btn--outline">Entrar em Contato</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand"><img src="images/logo wines semfundo.png" alt="Wine's Life"><p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p></div>
+      <div><h5 class="footer__col-title">O Círculo</h5><div class="footer__links"><a href="manifesto.html">Manifesto</a><a href="private-members.html">O que é</a><a href="founding-members.html">Founding Members</a><a href="benefits.html">Benefícios</a></div></div>
+      <div><h5 class="footer__col-title">Experiências</h5><div class="footer__links"><a href="journeys.html">Private Journeys</a><a href="allocation.html">Allocation Program</a><a href="calendar.html">Calendário</a><a href="partners.html">Founding Partners</a></div></div>
+      <div><h5 class="footer__col-title">Acesso</h5><div class="footer__links"><a href="about.html">Sobre a Wine's Life</a><a href="card.html">O Cartão</a><a href="invite.html">Solicitar Convite</a></div></div>
+    </div>
+    <div class="footer__bottom"><p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p><div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div></div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

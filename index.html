@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wine's Life Private Members</title>
+  <meta name="description" content="Uma sociedade privada dedicada à alta cultura, grandes vinhos e momentos ímpares.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* Home-specific styles */
+    .home-intro {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    .home-intro__divider {
+      width: 1px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--silver-dark), transparent);
+    }
+
+    .home-intro__col {
+      padding: var(--space-md) 0;
+    }
+
+    .home-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-top: var(--space-xl);
+    }
+
+    .home-pillar {
+      background: var(--noir);
+      padding: var(--space-lg);
+      text-align: center;
+      transition: background var(--duration-medium) var(--ease-out);
+    }
+
+    .home-pillar:hover {
+      background: var(--graphite);
+    }
+
+    .home-pillar__icon {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-sm);
+      opacity: 0.6;
+    }
+
+    .home-pillar__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+    }
+
+    .home-pillar__text {
+      font-size: 0.85rem;
+      color: var(--silver);
+      line-height: 1.8;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .home-cta-block {
+      text-align: center;
+      padding: var(--space-2xl) var(--space-md);
+      position: relative;
+    }
+
+    .home-cta-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--silver-dark));
+    }
+
+    .home-experiences {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+
+    .home-experience {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .home-experience img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: all var(--duration-slow) var(--ease-out);
+    }
+
+    .home-experience:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .home-experience__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.4);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-sm);
+      opacity: 0;
+      transition: opacity var(--duration-medium) var(--ease-out);
+    }
+
+    .home-experience:hover .home-experience__overlay {
+      opacity: 1;
+    }
+
+    .home-experience__label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .home-intro {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .home-intro__divider {
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--silver-dark), transparent);
+        margin: 0 auto;
+      }
+      .home-pillars {
+        grid-template-columns: 1fr;
+      }
+      .home-experiences {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader__text">Wine's Life</div>
+    <div class="loader__bar">
+      <div class="loader__bar-fill" id="loaderFill"></div>
+    </div>
+  </div>
+
+  <!-- Grain Overlay -->
+  <div class="grain" id="grain"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor cursor--dot" id="cursorDot"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+
+    <div class="nav__toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="nav__mobile-menu">
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="benefits.html">Benefícios</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="allocation.html">Allocation Program</a>
+    <a href="calendar.html">Calendário</a>
+    <a href="partners.html">Founding Partners</a>
+    <a href="card.html">O Cartão</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html" style="color: var(--white); border-bottom: 1px solid var(--silver-dark); padding-bottom: 0.25rem;">Solicitar Convite</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg">
+      <video autoplay muted loop playsinline>
+        <source src="images/Romanee conti.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow">Wine's Life</p>
+      <h1 class="hero__title"><em>Private Members</em></h1>
+      <p class="hero__subtitle">Worldwide</p>
+      <div class="hero__divider"></div>
+      <p class="hero__description">
+        Uma sociedade privada dedicada à alta cultura,<br>
+        grandes vinhos e momentos ímpares.
+      </p>
+      <div class="hero__cta">
+        <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+      </div>
+    </div>
+
+    <div class="hero__scroll">
+      <span class="hero__scroll-text">Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Manifesto Preview — Word-by-word opacity -->
+  <section class="section section--lg section--dark">
+    <div class="section__narrow">
+      <div class="manifesto-lines">
+        <p>O vinho une</p>
+        <p>o tempo constrói</p>
+        <p>as experiências revelam</p>
+        <p>e nossa sociedade, prospera</p>
+        <p><strong>Aqui nasce o Wine's Life Private Members</strong></p>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <a href="manifesto.html" class="btn btn--ghost">Ler o Manifesto</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- O que é -->
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <h2 class="section__title" style="font-style: italic;">Uma sociedade, não um clube.</h2>
+        <div class="section__divider"></div>
+        <p class="section__description">
+          O Private Members foi criado com objetivo de prestigiar os que
+          caminham conosco desde o início, e conceder àqueles que desejam
+          pertencer, uma oportunidade.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.04); margin-top: var(--space-lg);" class="reveal">
+        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
+          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Private society</h4>
+          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Entrada por convite<br>ou manifestação de interesse</p>
+        </div>
+        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
+          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Curadoria exclusiva</h4>
+          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Experiências selecionadas por quem<br>compartilha os mesmos valores</p>
+        </div>
+        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
+          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Acesso antecipado</h4>
+          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">O poder de sempre<br>escolher primeiro</p>
+        </div>
+        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
+          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Experiências singulares</h4>
+          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Momentos únicos<br>que não se repetem</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-lg);" class="reveal">
+        <a href="private-members.html" class="btn btn--ghost">Aprofunde-se</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Pilares -->
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <h2 class="section__title">Além do vinho</h2>
+        <div class="section__divider"></div>
+        <p class="section__description">
+          O vinho é a origem. O estilo de vida apenas acompanha o primor.
+          Uma curadoria construída e apurada ao longo de anos precisa de
+          harmonia com uma vida de valor.
+        </p>
+      </div>
+
+      <div class="home-pillars">
+        <div class="home-pillar tilt-card reveal reveal--delay-1">
+          <div class="home-pillar__icon">⬦</div>
+          <h4 class="home-pillar__title">Grandes Vinhos</h4>
+          <p class="home-pillar__text">
+            Verticais históricas, safras singulares e acesso exclusivo a produtores restritos.
+          </p>
+        </div>
+        <div class="home-pillar tilt-card reveal reveal--delay-2">
+          <div class="home-pillar__icon">⬦</div>
+          <h4 class="home-pillar__title">Gastronomia</h4>
+          <p class="home-pillar__text">
+            Experiências à mesa presididas por chefs de renomada distinção, em locais de inigualável envergadura.
+          </p>
+        </div>
+        <div class="home-pillar tilt-card reveal reveal--delay-3">
+          <div class="home-pillar__icon">⬦</div>
+          <h4 class="home-pillar__title">Viagens Privadas</h4>
+          <p class="home-pillar__text">
+            Roteiros idealizados para os membros.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Founding Members Preview -->
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+      <div class="founding reveal">
+        <div class="founding__number" data-count="100">100</div>
+        <div class="section__divider" style="margin-top: var(--space-md);"></div>
+        <p class="section__description" style="margin-top: var(--space-md);">
+          Os Founding Members representarão o núcleo fundador do Wine's Life
+          Private Members e participarão da construção da história deste
+          círculo desde o início.
+        </p>
+        <div style="margin-top: var(--space-lg);">
+          <a href="founding-members.html" class="btn btn--outline">Founding Members</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Benefits Preview -->
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <h2 class="section__title">O que o círculo oferece</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="benefits-editorial">
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-01.jpg" alt="Acesso Antecipado">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">01</span>
+            <h4 class="benefit-row__title">Acesso Antecipado</h4>
+          </div>
+        </div>
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-02.jpg" alt="Vinhos Raros">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">02</span>
+            <h4 class="benefit-row__title">Vinhos Raros</h4>
+          </div>
+        </div>
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-03.jpg" alt="Preço de Origem">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">03</span>
+            <h4 class="benefit-row__title">Preço de Origem</h4>
+          </div>
+        </div>
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-04.jpg" alt="Viagens Privadas">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">04</span>
+            <h4 class="benefit-row__title">Viagens Privadas</h4>
+          </div>
+        </div>
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-05.jpg" alt="Encontros Reservados">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">05</span>
+            <h4 class="benefit-row__title">Encontros Reservados</h4>
+          </div>
+        </div>
+
+        <div class="benefit-row reveal">
+          <div class="benefit-row__image">
+            <img src="images/benefit-06.jpg" alt="Concierge Pessoal">
+          </div>
+          <div class="benefit-row__content">
+            <span class="benefit-row__number">06</span>
+            <h4 class="benefit-row__title">Concierge Pessoal</h4>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <a href="benefits.html" class="btn btn--ghost">Todos os benefícios</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Private Journeys — Horizontal Scroll -->
+  <section class="hscroll-section" id="journeysHscroll">
+    <div class="hscroll-header">
+      <h2 class="section__title" style="font-style: italic;">Destinos fora do mapa</h2>
+    </div>
+    <div class="hscroll-wrapper">
+      <div class="hscroll-track" id="journeysTrack">
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/bordeaux.jpeg') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">01</span>
+            <h3 class="hscroll-card__title" data-scramble>Bordeaux</h3>
+            <p class="hscroll-card__region">França</p>
+          </div>
+        </div>
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/borgonha.jpg') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">02</span>
+            <h3 class="hscroll-card__title" data-scramble>Borgonha</h3>
+            <p class="hscroll-card__region">França</p>
+          </div>
+        </div>
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/champagne .webp') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">03</span>
+            <h3 class="hscroll-card__title" data-scramble>Champagne</h3>
+            <p class="hscroll-card__region">França</p>
+          </div>
+        </div>
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/napa valley.jpg') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">04</span>
+            <h3 class="hscroll-card__title" data-scramble>Napa Valley</h3>
+            <p class="hscroll-card__region">Estados Unidos</p>
+          </div>
+        </div>
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/toscana.jpg') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">05</span>
+            <h3 class="hscroll-card__title" data-scramble>Toscana</h3>
+            <p class="hscroll-card__region">Itália</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; padding: var(--space-lg) 0;">
+      <a href="journeys.html" class="btn btn--outline">Todas as Journeys</a>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Allocation Preview -->
+  <section class="section section--lg section--graphite">
+    <div class="section__narrow" style="text-align: center;">
+      <div class="reveal">
+        <h2 class="section__title" style="margin-bottom: var(--space-md); font-style: italic;">
+          Avant Access
+        </h2>
+        <div class="section__divider"></div>
+        <p class="section__description" style="margin-bottom: var(--space-lg);">
+          Oferecemos aos membros prioridade total e oportunidades que
+          normalmente não chegam ao mercado, além de safras históricas,
+          edições limitadas e pré-alocações de produtores selecionados.
+        </p>
+        <a href="allocation.html" class="btn btn--outline">Saiba Mais</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Founding Partners Preview -->
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <h2 class="section__title" style="font-style: italic;">Heritage</h2>
+        <div class="section__divider"></div>
+        <p class="section__description">
+          Marcas, casas e famílias parceiras que participam da construção
+          institucional do Wine's Life Private Members desde a sua fundação.
+        </p>
+      </div>
+
+      <!-- Infinite Logo Slider with Progressive Blur -->
+      <div class="logo-slider reveal">
+        <div class="logo-slider__track">
+          <img src="images/LOGOS WINES/12.png" alt="Camargo Alfaiataria" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/13.png" alt="4Boss" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/14.png" alt="DIO Watches" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/15.png" alt="TRK Investimentos" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/16.png" alt="Mendes Leão" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/17.png" alt="Bitar Aviação" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/18.png" alt="BTG Pactual" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/19.png" alt="Paulo Tarso" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/LOGOS WINES.png" alt="Six Sport Life" class="logo-slider__logo">
+          <!-- Duplicate for seamless loop -->
+          <img src="images/LOGOS WINES/12.png" alt="Camargo Alfaiataria" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/13.png" alt="4Boss" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/14.png" alt="DIO Watches" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/15.png" alt="TRK Investimentos" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/16.png" alt="Mendes Leão" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/17.png" alt="Bitar Aviação" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/18.png" alt="BTG Pactual" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/19.png" alt="Paulo Tarso" class="logo-slider__logo">
+          <img src="images/LOGOS WINES/LOGOS WINES.png" alt="Six Sport Life" class="logo-slider__logo">
+        </div>
+
+        <!-- Progressive Blur — Left -->
+        <div class="progressive-blur progressive-blur--left">
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);mask-image:linear-gradient(to right,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);"></div>
+        </div>
+
+        <!-- Progressive Blur — Right -->
+        <div class="progressive-blur progressive-blur--right">
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);mask-image:linear-gradient(to left,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);"></div>
+          <div class="progressive-blur__layer" style="backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);"></div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <a href="partners.html" class="btn btn--ghost">Todos os parceiros</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- Sticky Word-by-Word Section -->
+  <section class="sticky-text-section" id="stickyText">
+    <div class="sticky-text-wrapper">
+      <p class="word-by-word" id="wordByWord">
+        O vinho mais raro do mundo não é raro apenas pelas uvas e rótulos. Existe o preço do vinho e o valor de como, onde e com quem se abre ela. O Private Members reflete um ambiente onde certas coisas naturalmente acontecem porque assim como água corre para o mar, os melhores vinhos sempre encontram as mãos certas.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section section--lg section--dark">
+    <div class="home-cta-block reveal">
+      <p style="font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; font-style: italic; color: var(--silver-light); margin-bottom: var(--space-lg); line-height: 1.5;">
+        As entradas acontecem por convite
+      </p>
+      <a href="invite.html" class="btn btn--primary">Manifestar interesse</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links">
+          <a href="manifesto.html">Manifesto</a>
+          <a href="private-members.html">O que é</a>
+          <a href="founding-members.html">Founding Members</a>
+          <a href="benefits.html">Benefícios</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links">
+          <a href="journeys.html">Private Journeys</a>
+          <a href="allocation.html">Allocation Program</a>
+          <a href="calendar.html">Calendário</a>
+          <a href="partners.html">Founding Partners</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre a Wine's Life</a>
+          <a href="card.html">O Cartão</a>
+          <a href="invite.html">Solicitar Convite</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

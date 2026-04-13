@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allocation Program — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .alloc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 420px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .alloc-row:last-child {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .alloc-row:nth-child(even) .alloc-row__image {
+      order: 2;
+    }
+
+    .alloc-row:nth-child(even) .alloc-row__content {
+      order: 1;
+    }
+
+    .alloc-row__image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .alloc-row__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .alloc-row:hover .alloc-row__image img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .alloc-row__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-lg) var(--space-xl);
+    }
+
+    .alloc-row__number {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--silver-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .alloc-row__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      color: var(--white);
+      font-style: italic;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .alloc-row__text {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 2;
+      max-width: 420px;
+    }
+
+    @media (max-width: 768px) {
+      .alloc-row {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .alloc-row__image {
+        aspect-ratio: 16/10;
+      }
+
+      .alloc-row:nth-child(even) .alloc-row__image {
+        order: 0;
+      }
+
+      .alloc-row:nth-child(even) .alloc-row__content {
+        order: 0;
+      }
+
+      .alloc-row__content {
+        padding: var(--space-md);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <section class="page-header" style="padding-left: var(--space-md); padding-right: var(--space-md);">
+    <p class="section__eyebrow reveal">Avant Access</p>
+    <h1 class="section__title reveal" style="font-style: italic;">Acesso antes do mercado</h1>
+    <div class="section__divider reveal"></div>
+    <p class="section__description reveal">
+      O objetivo é oferecer aos membros acesso antecipado a oportunidades como
+      safras históricas, edições limitadas e pré-alocações dos produtores selecionados.
+    </p>
+  </section>
+
+  <section class="section section--lg section--dark">
+    <div class="section__inner">
+
+      <div class="alloc-row">
+        <div class="alloc-row__image">
+          <img src="images/allocation-01.jpg" alt="Vinhos Raros">
+        </div>
+        <div class="alloc-row__content">
+          <span class="alloc-row__number">01</span>
+          <h3 class="alloc-row__title">Vinhos Raros</h3>
+          <p class="alloc-row__text">Garrafas de produtores que normalmente não exportam ou produzem em quantidades extremamente limitadas. Acesso direto a rótulos que não chegam às prateleiras.</p>
+        </div>
+      </div>
+
+      <div class="alloc-row">
+        <div class="alloc-row__image">
+          <img src="images/allocation-02.jpg" alt="Pré-Alocações">
+        </div>
+        <div class="alloc-row__content">
+          <span class="alloc-row__number">02</span>
+          <h3 class="alloc-row__title">Pré-Alocações</h3>
+          <p class="alloc-row__text">Reserva antecipada de safras antes mesmo do lançamento oficial no mercado. Garantir sua posição nas listas mais concorridas do mundo.</p>
+        </div>
+      </div>
+
+      <div class="alloc-row">
+        <div class="alloc-row__image">
+          <img src="images/allocation-03.jpg" alt="Safras Históricas">
+        </div>
+        <div class="alloc-row__content">
+          <span class="alloc-row__number">03</span>
+          <h3 class="alloc-row__title">Safras Históricas</h3>
+          <p class="alloc-row__text">Acesso a vintages excepcionais que já não estão disponíveis em canais convencionais. Garrafas com história, proveniência verificada e conservação impecável.</p>
+        </div>
+      </div>
+
+      <div class="alloc-row">
+        <div class="alloc-row__image">
+          <img src="images/allocation-04.jpg" alt="Edições Limitadas">
+        </div>
+        <div class="alloc-row__content">
+          <span class="alloc-row__number">04</span>
+          <h3 class="alloc-row__title">Edições Limitadas</h3>
+          <p class="alloc-row__text">Cuvées especiais, magnums, formatos exclusivos e rótulos de produção restrita. Peças de coleção para quem entende o valor de uma peça insubstituível.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-xl); padding: var(--space-lg); border: 1px solid rgba(255,255,255,0.06); background: var(--graphite);" class="reveal">
+        <p style="font-family: var(--font-display); font-size: 1.15rem; font-style: italic; color: var(--silver-light); line-height: 1.8; max-width: 500px; margin: 0 auto var(--space-md);">
+          O Avant Access é exclusivo para os membros com listas enviadas
+          diretamente e com prazo limitado de adesão.
+        </p>
+        <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links">
+          <a href="manifesto.html">Manifesto</a>
+          <a href="private-members.html">O que é</a>
+          <a href="founding-members.html">Founding Members</a>
+          <a href="benefits.html">Benefícios</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links">
+          <a href="journeys.html">Private Journeys</a>
+          <a href="allocation.html">Allocation Program</a>
+          <a href="calendar.html">Calendário</a>
+          <a href="partners.html">Founding Partners</a>
+        </div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre a Wine's Life</a>
+          <a href="card.html">O Cartão</a>
+          <a href="invite.html">Solicitar Convite</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

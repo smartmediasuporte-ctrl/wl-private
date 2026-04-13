@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Journeys — Wine's Life Private Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .journeys-hero {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: var(--nav-height);
+      background: linear-gradient(180deg, var(--graphite) 0%, var(--noir) 100%);
+      position: relative;
+    }
+
+    .journey-full {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .journey-full:nth-child(even) {
+      direction: rtl;
+    }
+
+    .journey-full:nth-child(even) > * {
+      direction: ltr;
+    }
+
+    .journey-full__img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journey-full__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: all var(--duration-slow) var(--ease-out);
+    }
+
+    .journey-full:hover .journey-full__img img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .journey-full__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-xl);
+    }
+
+    .journey-full__region {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: var(--space-sm);
+    }
+
+    .journey-full__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      margin-bottom: var(--space-md);
+    }
+
+    .journey-full__text {
+      font-size: 0.9rem;
+      color: var(--silver);
+      line-height: 1.9;
+      max-width: 450px;
+    }
+
+    .globe-legend__item {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .globe-legend__item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(200, 170, 110, 0.8);
+      box-shadow: 0 0 6px rgba(200, 170, 110, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .journey-full {
+        grid-template-columns: 1fr;
+      }
+      .journey-full:nth-child(even) { direction: ltr; }
+      .journey-full__img { min-height: 300px; }
+      .journey-full__content { padding: var(--space-lg) var(--space-md); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="images/logo wines semfundo.png" alt="Wine's Life">
+      <span class="nav__logo-text">Private Members</span>
+    </a>
+    <div class="nav__links">
+      <a href="manifesto.html" class="nav__link">Manifesto</a>
+      <a href="private-members.html" class="nav__link">O Círculo</a>
+      <a href="founding-members.html" class="nav__link">Founding Members</a>
+      <a href="journeys.html" class="nav__link">Journeys</a>
+      <a href="acervo.html" class="nav__link">Acervo</a>
+      <a href="about.html" class="nav__link">Sobre</a>
+      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+    </div>
+    <div class="nav__toggle"><span></span><span></span><span></span></div>
+  </nav>
+
+  <div class="nav__mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="private-members.html">O Círculo</a>
+    <a href="founding-members.html">Founding Members</a>
+    <a href="journeys.html">Private Journeys</a>
+    <a href="acervo.html">Acervo</a>
+    <a href="about.html">Sobre</a>
+    <a href="invite.html">Solicitar Convite</a>
+  </div>
+
+  <section class="journeys-hero">
+    <div style="padding: var(--space-xl) var(--space-md);">
+      <p class="section__eyebrow reveal" style="margin-bottom: var(--space-md);">Private Journeys</p>
+      <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; color: var(--white); font-style: italic; line-height: 1.2; margin-bottom: var(--space-md);" class="reveal">
+        Destinos fora do mapa
+      </h1>
+      <div class="section__divider reveal"></div>
+      <p class="section__description reveal">
+        Organizadas exclusivamente para encontrar produtores e experiências que não são abertas ao público.
+      </p>
+    </div>
+  </section>
+
+  <!-- Destinations -->
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/bordeaux.jpeg" alt="Bordeaux">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">França</p>
+      <h2 class="journey-full__title">Bordeaux</h2>
+      <p class="journey-full__text">
+        Visitas privadas aos grandes Châteaux da margem esquerda e direita.
+        Degustações em barrel rooms reservadas, jantares com os proprietários
+        e acesso a safras que nem chegarão ao mercado.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/borgonha.jpg" alt="Borgonha">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">França</p>
+      <h2 class="journey-full__title">Borgonha</h2>
+      <p class="journey-full__text">
+        Os climats mais prestigiados do mundo. Encontros com vignerons
+        que produzem algumas centenas de garrafas por ano e que raramente
+        recebem visitantes.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/champagne .webp" alt="Champagne">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">França</p>
+      <h2 class="journey-full__title">Champagne</h2>
+      <p class="journey-full__text">
+        Das grandes maisons aos pequenos récoltants-manipulants.
+        Experiências em caves históricas, jantares harmonizados e
+        acesso a cuvées de prestígio.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/napa valley.jpg" alt="Napa Valley">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">Estados Unidos</p>
+      <h2 class="journey-full__title">Napa Valley</h2>
+      <p class="journey-full__text">
+        O coração da viticultura americana. Visitas a cult wineries,
+        tastings em allocation-only properties e jantares privados com winemakers.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/toscana.jpg" alt="Toscana">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">Itália</p>
+      <h2 class="journey-full__title">Toscana & Piemonte</h2>
+      <p class="journey-full__text">
+        Brunello, Barolo, Super Toscanos. Visitas a produtores lendários,
+        trufas em Alba, jantares em vilas históricas e a dolce vita
+        em sua expressão mais genuína.
+      </p>
+    </div>
+  </div>
+
+  <div class="journey-full">
+    <div class="journey-full__img">
+      <img src="images/douro.jpg" alt="Douro & Lisboa">
+    </div>
+    <div class="journey-full__content">
+      <p class="journey-full__region">Portugal</p>
+      <h2 class="journey-full__title">Douro & Lisboa</h2>
+      <p class="journey-full__text">
+        Das quintas históricas do Douro às novas expressões de Lisboa.
+        Porto Vintage, vinhos de talha alentejanos e gastronomia portuguesa
+        em sua forma mais autêntica.
+      </p>
+    </div>
+  </div>
+
+  <!-- Globe -->
+  <section class="section section--lg section--dark" style="padding-bottom: 0;">
+    <style>
+      @keyframes globePulse {
+        0%, 100% { opacity: 0.15; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(1.08); }
+      }
+      @keyframes markerPulse {
+        0%, 100% { r: 8; opacity: 0.2; }
+        50% { r: 12; opacity: 0.08; }
+      }
+      .globe-marker-ring { animation: markerPulse 3s ease-in-out infinite; }
+      .globe-marker-ring:nth-child(3n) { animation-delay: -1s; }
+      .globe-marker-ring:nth-child(3n+1) { animation-delay: -2s; }
+      .globe-label { font-family: 'Jost', sans-serif; font-size: 7.5px; font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase; }
+    </style>
+    <div style="max-width: 420px; margin: 0 auto;">
+      <div style="width: 380px; height: 380px; margin: 0 auto;">
+        <svg viewBox="0 0 380 380" width="380" height="380" style="display:block;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="gS" cx="35%" cy="32%" r="58%">
+              <stop offset="0%" stop-color="#5a5a65"/>
+              <stop offset="50%" stop-color="#33333a"/>
+              <stop offset="100%" stop-color="#18181c"/>
+            </radialGradient>
+            <radialGradient id="gGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="60%" stop-color="transparent"/>
+              <stop offset="100%" stop-color="rgba(200,170,110,0.12)"/>
+            </radialGradient>
+            <clipPath id="sClip"><circle cx="190" cy="190" r="155"/></clipPath>
+            <filter id="dotGlow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="softGlow"><feGaussianBlur stdDeviation="8"/></filter>
+          </defs>
+
+          <!-- Ambient glow -->
+          <circle cx="190" cy="190" r="180" fill="url(#gGlow)"/>
+
+          <!-- Sphere base -->
+          <circle cx="190" cy="190" r="155" fill="url(#gS)"/>
+          <circle cx="190" cy="190" r="155" fill="none" stroke="rgba(200,170,110,0.25)" stroke-width="1"/>
+
+          <!-- Grid lines: latitude -->
+          <g clip-path="url(#sClip)" opacity="0.18" stroke="#c8aa6e" fill="none" stroke-width="0.5">
+            <!-- Equator (thicker) -->
+            <ellipse cx="190" cy="190" rx="155" ry="12" stroke-width="0.6" opacity="1"/>
+            <!-- Tropics -->
+            <ellipse cx="190" cy="155" rx="150" ry="20"/>
+            <ellipse cx="190" cy="225" rx="150" ry="20"/>
+            <!-- Mid latitudes -->
+            <ellipse cx="190" cy="120" rx="138" ry="28"/>
+            <ellipse cx="190" cy="260" rx="138" ry="28"/>
+            <!-- Polar -->
+            <ellipse cx="190" cy="85" rx="110" ry="22"/>
+            <ellipse cx="190" cy="295" rx="110" ry="22"/>
+          </g>
+
+          <!-- Grid lines: longitude -->
+          <g clip-path="url(#sClip)" opacity="0.18" stroke="#c8aa6e" fill="none" stroke-width="0.5">
+            <line x1="190" y1="35" x2="190" y2="345" stroke-width="0.6" opacity="1"/>
+            <ellipse cx="190" cy="190" rx="25" ry="155"/>
+            <ellipse cx="190" cy="190" rx="55" ry="155"/>
+            <ellipse cx="190" cy="190" rx="85" ry="155"/>
+            <ellipse cx="190" cy="190" rx="115" ry="155"/>
+            <ellipse cx="190" cy="190" rx="140" ry="155"/>
+          </g>
+
+          <!-- Specular highlight -->
+          <ellipse cx="155" cy="145" rx="75" ry="105" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="50" clip-path="url(#sClip)"/>
+
+          <!-- Soft glow behind markers -->
+          <circle cx="205" cy="115" r="40" fill="rgba(200,170,110,0.04)" filter="url(#softGlow)" clip-path="url(#sClip)"/>
+
+          <!-- Destination markers with labels -->
+          <g filter="url(#dotGlow)">
+            <!-- Champagne, France (top) -->
+            <circle cx="200" cy="98" r="3" fill="#c8aa6e"/>
+            <circle cx="200" cy="98" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="211" y="95" fill="rgba(200,170,110,0.9)" class="globe-label">Champagne</text>
+
+            <!-- Borgonha (Burgundy), France -->
+            <circle cx="208" cy="110" r="3" fill="#c8aa6e"/>
+            <circle cx="208" cy="110" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="219" y="108" fill="rgba(200,170,110,0.9)" class="globe-label">Bourgogne</text>
+
+            <!-- Bordeaux, France -->
+            <circle cx="192" cy="122" r="3.5" fill="#c8aa6e"/>
+            <circle cx="192" cy="122" r="8" fill="rgba(200,170,110,0.2)" class="globe-marker-ring"/>
+            <text x="175" y="120" fill="rgba(200,170,110,0.9)" class="globe-label" text-anchor="end">Bordeaux</text>
+
+            <!-- Toscana, Italy -->
+            <circle cx="222" cy="126" r="3" fill="#c8aa6e"/>
+            <circle cx="222" cy="126" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="233" y="124" fill="rgba(200,170,110,0.9)" class="globe-label">Toscana</text>
+
+            <!-- Douro, Portugal -->
+            <circle cx="182" cy="134" r="3" fill="#c8aa6e"/>
+            <circle cx="182" cy="134" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="165" y="145" fill="rgba(200,170,110,0.9)" class="globe-label" text-anchor="end">Douro</text>
+
+            <!-- Napa Valley, USA -->
+            <circle cx="96" cy="118" r="3" fill="#c8aa6e"/>
+            <circle cx="96" cy="118" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="83" y="132" fill="rgba(200,170,110,0.9)" class="globe-label" text-anchor="end">Napa Valley</text>
+
+            <!-- Brasil -->
+            <circle cx="155" cy="230" r="3" fill="#c8aa6e"/>
+            <circle cx="155" cy="230" r="8" fill="rgba(200,170,110,0.18)" class="globe-marker-ring"/>
+            <text x="166" y="233" fill="rgba(200,170,110,0.9)" class="globe-label">Brasil</text>
+          </g>
+
+          <!-- Connection lines (subtle arcs between Europe and other regions) -->
+          <g clip-path="url(#sClip)" stroke="rgba(200,170,110,0.06)" fill="none" stroke-width="0.5" stroke-dasharray="3,4">
+            <!-- Europe to Napa -->
+            <path d="M195,121 Q150,80 96,118"/>
+            <!-- Europe to Brasil -->
+            <path d="M195,121 Q175,175 155,230"/>
+          </g>
+        </svg>
+      </div>
+      <div class="globe-legend reveal" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem 2rem; margin-top: var(--space-lg); padding: 0 var(--space-md);">
+        <span class="globe-legend__item">Fran&ccedil;a</span>
+        <span class="globe-legend__item">It&aacute;lia</span>
+        <span class="globe-legend__item">Portugal</span>
+        <span class="globe-legend__item">Estados Unidos</span>
+        <span class="globe-legend__item">Brasil</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--lg section--dark" style="text-align: center;">
+    <div class="reveal">
+      <p style="font-family: var(--font-display); font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-style: italic; color: var(--silver-light); margin-bottom: var(--space-lg); max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        As próximas journeys são reservadas exclusivamente para membros do círculo.
+      </p>
+      <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+      <div>
+        <h5 class="footer__col-title">O Círculo</h5>
+        <div class="footer__links"><a href="manifesto.html">Manifesto</a><a href="private-members.html">O que é</a><a href="founding-members.html">Founding Members</a><a href="benefits.html">Benefícios</a></div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Experiências</h5>
+        <div class="footer__links"><a href="journeys.html">Private Journeys</a><a href="allocation.html">Allocation Program</a><a href="calendar.html">Calendário</a><a href="partners.html">Founding Partners</a></div>
+      </div>
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links"><a href="about.html">Sobre a Wine's Life</a><a href="card.html">O Cartão</a><a href="invite.html">Solicitar Convite</a></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p>
+      <div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+
+</body>
+</html>
