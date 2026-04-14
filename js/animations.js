@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== HERO ANIMATIONS ==========
     const heroTimeline = gsap.timeline({ delay: 0.3 });
     const heroEls = {
-      eyebrow: document.querySelector('.hero__eyebrow'),
       title: document.querySelector('.hero__title'),
       subtitle: document.querySelector('.hero__subtitle'),
       divider: document.querySelector('.hero__divider'),
@@ -117,8 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroEls.divider) heroEls.divider.style.transform = 'scaleX(0)';
 
     heroTimeline
-      .to(heroEls.eyebrow, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
-      .to(heroEls.title, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.5')
+      .to(heroEls.title, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' })
       .to(heroEls.subtitle, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7')
       .to(heroEls.divider, { opacity: 1, scaleX: 1, duration: 0.8, ease: 'power2.inOut' }, '-=0.5')
       .to(heroEls.desc, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
