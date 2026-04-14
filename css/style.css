@@ -1723,6 +1723,27 @@ html.lenis, html.lenis body {
   max-width: 300px;
 }
 
+@media (max-width: 768px) {
+  .hscroll-card {
+    min-width: 220px;
+  }
+
+  .hscroll-card__content {
+    padding: var(--space-md);
+    align-items: center;
+    text-align: center;
+  }
+
+  .hscroll-card__title {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  .hscroll-card__number {
+    top: var(--space-md);
+    left: var(--space-md);
+  }
+}
+
 /* ============================================
    AVANT ACCESS ROWS
    ============================================ */
