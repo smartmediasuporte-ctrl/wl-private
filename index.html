@@ -139,6 +139,139 @@
       color: var(--white);
     }
 
+    /* Card 3D Animations */
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes cardRotate {
+      0% { transform: rotateY(-3deg) rotateX(2deg); }
+      25% { transform: rotateY(4deg) rotateX(-1deg); }
+      50% { transform: rotateY(-2deg) rotateX(3deg); }
+      75% { transform: rotateY(5deg) rotateX(-2deg); }
+      100% { transform: rotateY(-3deg) rotateX(2deg); }
+    }
+    @keyframes cardShine {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .card-3d.is-hovering { animation: none !important; transition: transform 0.1s ease-out; }
+    .card-3d::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 30%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .card-3d.is-hovering::after { opacity: 1; }
+    .card-3d:not(.is-hovering)::after {
+      opacity: 0;
+    }
+    .card-3d::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 10%;
+      right: 10%;
+      height: 40px;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%);
+      filter: blur(15px);
+      pointer-events: none;
+    }
+
+    /* Manifesto Modal */
+    .manifesto-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .manifesto-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .manifesto-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .manifesto-modal__content {
+      position: relative;
+      max-width: 620px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 3.5rem 3rem;
+      margin: 1rem;
+      background: var(--noir, #0a0a0c);
+      border: 1px solid rgba(255,255,255,0.06);
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+    .manifesto-modal.is-open .manifesto-modal__content {
+      transform: translateY(0);
+    }
+    .manifesto-modal__close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--silver, #888);
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .manifesto-modal__close:hover { color: var(--white, #fff); }
+    .manifesto-modal__eyebrow {
+      font-family: var(--font-body, 'Jost', sans-serif);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver-dark, #666);
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-modal__title {
+      font-family: var(--font-display, 'Bodoni Moda', serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white, #fff);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-modal__divider {
+      width: 40px;
+      height: 1px;
+      background: var(--silver-dark, #666);
+      margin-bottom: 2rem;
+    }
+    .manifesto-modal__text p {
+      font-family: var(--font-body, 'Jost', sans-serif);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--silver, #aaa);
+      margin-bottom: 1.2rem;
+    }
+    .manifesto-modal__text strong {
+      color: var(--white, #fff);
+      font-weight: 400;
+    }
+    .manifesto-modal__content::-webkit-scrollbar { width: 3px; }
+    .manifesto-modal__content::-webkit-scrollbar-track { background: transparent; }
+    .manifesto-modal__content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
     @media (max-width: 768px) {
       .home-intro {
         grid-template-columns: 1fr;
@@ -150,11 +283,14 @@
         background: linear-gradient(to right, transparent, var(--silver-dark), transparent);
         margin: 0 auto;
       }
-      .home-pillars {
-        grid-template-columns: 1fr;
-      }
       .home-experiences {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .founding-card-row {
+        grid-template-columns: 1fr !important;
+      }
+      .card-float {
+        max-width: 320px !important;
       }
     }
   </style>
@@ -184,13 +320,12 @@
     </a>
 
     <div class="nav__links">
-      <a href="manifesto.html" class="nav__link">Manifesto</a>
-      <a href="private-members.html" class="nav__link">O Círculo</a>
-      <a href="founding-members.html" class="nav__link">Founding Members</a>
-      <a href="journeys.html" class="nav__link">Journeys</a>
-      <a href="acervo.html" class="nav__link">Acervo</a>
-      <a href="about.html" class="nav__link">Sobre</a>
-      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+      <a href="#manifesto" class="nav__link">Manifesto</a>
+      <a href="#circulo" class="nav__link">Círculo</a>
+      <a href="#founding" class="nav__link">Founding Members</a>
+      <a href="#journeys" class="nav__link">Journeys</a>
+      <a href="#avant-access" class="nav__link">Avant Access</a>
+      <a href="#convite" class="nav__cta">Solicitar Convite</a>
     </div>
 
     <div class="nav__toggle">
@@ -202,18 +337,12 @@
 
   <!-- Mobile Menu -->
   <div class="nav__mobile-menu">
-    <a href="manifesto.html">Manifesto</a>
-    <a href="private-members.html">O Círculo</a>
-    <a href="founding-members.html">Founding Members</a>
-    <a href="benefits.html">Benefícios</a>
-    <a href="journeys.html">Private Journeys</a>
-    <a href="acervo.html">Acervo</a>
-    <a href="allocation.html">Allocation Program</a>
-    <a href="calendar.html">Calendário</a>
-    <a href="partners.html">Founding Partners</a>
-    <a href="card.html">O Cartão</a>
-    <a href="about.html">Sobre</a>
-    <a href="invite.html" style="color: var(--white); border-bottom: 1px solid var(--silver-dark); padding-bottom: 0.25rem;">Solicitar Convite</a>
+    <a href="#manifesto">Manifesto</a>
+    <a href="#circulo">Círculo</a>
+    <a href="#founding">Founding Members</a>
+    <a href="#journeys">Journeys</a>
+    <a href="#avant-access">Avant Access</a>
+    <a href="#convite" style="color: var(--white); border-bottom: 1px solid var(--silver-dark); padding-bottom: 0.25rem;">Solicitar Convite</a>
   </div>
 
   <!-- Hero -->
@@ -235,7 +364,7 @@
         grandes vinhos e momentos ímpares.
       </p>
       <div class="hero__cta">
-        <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+        <a href="#convite" class="btn btn--primary">Solicitar Convite</a>
       </div>
     </div>
 
@@ -245,209 +374,261 @@
     </div>
   </section>
 
-  <!-- Manifesto Preview — Word-by-word opacity -->
-  <section class="section section--lg section--dark">
+  <!-- Manifesto -->
+  <section class="section section--lg section--dark" id="manifesto">
     <div class="section__narrow">
       <div class="manifesto-lines">
         <p>O vinho une</p>
         <p>o tempo constrói</p>
         <p>as experiências revelam</p>
         <p>e nossa sociedade, prospera</p>
-        <p><strong>Aqui nasce o Wine's Life Private Members</strong></p>
+        <p><strong>Aqui nasce o Wine's Life Private Members.</strong></p>
       </div>
       <div style="text-align: center; margin-top: var(--space-lg);">
-        <a href="manifesto.html" class="btn btn--ghost">Ler o Manifesto</a>
+        <button class="btn btn--ghost" id="openManifesto">Ler o Manifesto</button>
       </div>
     </div>
   </section>
 
+  <!-- Manifesto Modal -->
+  <div class="manifesto-modal" id="manifestoModal">
+    <div class="manifesto-modal__backdrop" id="manifestoBackdrop"></div>
+    <div class="manifesto-modal__content">
+      <button class="manifesto-modal__close" id="closeManifesto">&times;</button>
+      <p class="manifesto-modal__eyebrow">Manifesto</p>
+      <h2 class="manifesto-modal__title">Da água<br>para o vinho</h2>
+      <div class="manifesto-modal__divider"></div>
+      <div class="manifesto-modal__text">
+        <p>Tudo começou com o vinho e o que ele representa.</p>
+        <p>Não como um produto, mas como símbolo. O vinho não é somente um pretexto, é uma ponte. Um convite silencioso para que aqueles que vivem e pensam de forma parecida possam se encontrar e compartilhar.</p>
+        <p>A Wine's Life nasceu dessa crença. Da ideia de que uma garrafa aberta no momento certo, entre as pessoas certas, pode se transformar em história.</p>
+        <p>Ao longo dos anos, construímos algo que não existe nesse ramo. Fizemos verticais históricas com safras que atravessaram décadas, viajamos e conhecemos lugares onde a maioria das pessoas jamais terá o prazer e a honra de visitar, e o mais importante, possibilitamos o encontro entre desconhecidos que se tornaram verdadeiros amigos.</p>
+        <p>Em cada uma dessas experiências, algo se repetia: além das mesmas pessoas voltarem, elas traziam seus amigos mais próximos. Pediam para participar antes de todos. Queriam fazer parte de algo que ainda não tinha nome.</p>
+        <p><strong>Agora tem.</strong></p>
+        <p>O Wine's Life Private Members é a formalização de um grupo seleto que já existia em sigilo. A diferença é que aqui ninguém entra por acaso. Entra porque caminhou conosco, foi apresentado por alguém que caminhou, ou demonstrou com mais do que palavras que deseja caminhar.</p>
+        <p>O Private Members não promete nada além da certeza de que, quando algo extraordinário acontecer, você será o primeiro a saber, e um dos poucos a estar lá.</p>
+      </div>
+    </div>
+  </div>
+
   <hr class="hr">
 
-  <!-- O que é -->
-  <section class="section section--lg section--dark">
+  <!-- O Círculo -->
+  <section class="section section--lg section--dark" id="circulo">
     <div class="section__inner">
+
+      <!-- Header -->
       <div class="section__header reveal">
         <h2 class="section__title" style="font-style: italic;">Uma sociedade, não um clube.</h2>
         <div class="section__divider"></div>
-        <p class="section__description">
+        <p class="section__description" style="max-width: 640px; margin-left: auto; margin-right: auto;">
           O Private Members foi criado com objetivo de prestigiar os que
           caminham conosco desde o início, e conceder àqueles que desejam
-          pertencer, uma oportunidade.
+          pertencer, uma oportunidade. Não é um clube de vantagens. Vantagem
+          significa estar na frente, e nós estamos onde não existe corrida,
+          pois somos aqueles que fazem a corrida.
         </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.04); margin-top: var(--space-lg);" class="reveal">
-        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
-          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Private society</h4>
-          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Entrada por convite<br>ou manifestação de interesse</p>
-        </div>
-        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
-          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Curadoria exclusiva</h4>
-          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Experiências selecionadas por quem<br>compartilha os mesmos valores</p>
-        </div>
-        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
-          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Acesso antecipado</h4>
-          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">O poder de sempre<br>escolher primeiro</p>
-        </div>
-        <div style="background: var(--noir); padding: var(--space-lg); text-align: center;">
-          <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--white); font-style: italic; margin-bottom: 0.5rem;">Experiências singulares</h4>
-          <p style="font-size: 0.8rem; color: var(--silver-dark); line-height: 1.7;">Momentos únicos<br>que não se repetem</p>
-        </div>
-      </div>
+      <!-- Tópicos -->
+      <div class="circulo-items">
 
-      <div style="text-align: center; margin-top: var(--space-lg);" class="reveal">
-        <a href="private-members.html" class="btn btn--ghost">Aprofunde-se</a>
+        <!-- 1. Seleção + Conexões -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-01.jpg" alt="Seleção e Conexões" style="object-position: center 70%;">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">01</span>
+            <h3 class="avant-row__title">Um círculo fechado por confiança</h3>
+            <p class="avant-row__text">A entrada acontece por convite ou manifestação de interesse, analisada individualmente. Apenas membros indicam membros — cada indicação carrega o peso e a confiança de quem a faz. Uma rede onde as melhores portas se abrem por dentro.</p>
+          </div>
+        </div>
+
+        <!-- 2. Curadoria + Rótulos Especiais -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-03.jpg" alt="Curadoria e Rótulos">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">02</span>
+            <h3 class="avant-row__title">Curadoria com autoria</h3>
+            <p class="avant-row__text">Cada experiência nasce de relações diretas com produtores, chefs e maisons. Nada é terceirizado. O resultado é o acesso a rótulos e seleções que não chegam ao mercado convencional.</p>
+          </div>
+        </div>
+
+        <!-- 3. Prioridade + Acesso Antecipado -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/pm-03.jpg" alt="Prioridade e Acesso">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">03</span>
+            <h3 class="avant-row__title">Acesso antes de todos</h3>
+            <p class="avant-row__text">Prioridade absoluta em tudo — safras raras, alocações, experiências e eventos. Quem pertence ao círculo escolhe primeiro, antes de qualquer divulgação.</p>
+          </div>
+        </div>
+
+        <!-- 4. Escassez + Encontros Reservados -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/pm-04.jpg" alt="Escassez e Encontros">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">04</span>
+            <h3 class="avant-row__title">Experiências que não se repetem</h3>
+            <p class="avant-row__text">Verticais históricas, encontros reservados, eventos que não aparecem em nenhum calendário público. Momentos impossíveis de replicar — e apenas os membros sabem que existem.</p>
+          </div>
+        </div>
+
+        <!-- 5. Pertencimento (mantido) -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/pm-05.jpg" alt="Pertencimento">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">05</span>
+            <h3 class="avant-row__title">Pertencimento, não participação</h3>
+            <p class="avant-row__text">A diferença entre ficar sabendo e estar presente se define neste grupo. Aqui, cada pessoa contribui para a história — e nós a estamos escrevendo.</p>
+          </div>
+        </div>
+
+        <!-- 6. Preço de Origem (mantido) -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-04.jpg" alt="Preço de Origem" style="object-position: center 90%;">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">06</span>
+            <h3 class="avant-row__title">Preço de Origem</h3>
+            <p class="avant-row__text">Compra direta a preço de origem, sem intermediários. As mesmas condições dos produtores e importadores parceiros do grupo.</p>
+          </div>
+        </div>
+
+        <!-- 7. Concierge Pessoal (mantido) -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-06.jpg" alt="Concierge Pessoal">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">07</span>
+            <h3 class="avant-row__title">Concierge Pessoal</h3>
+            <p class="avant-row__text">Assistência dedicada para recomendações, reservas e experiências personalizadas. Cada detalhe pensado com a mesma exigência do círculo.</p>
+          </div>
+        </div>
+
+        <!-- 8. Rolha Free (mantido) -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-07.jpg" alt="Rolha Free">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">08</span>
+            <h3 class="avant-row__title">Rolha Free</h3>
+            <p class="avant-row__text">Isenção de taxa de rolha em uma rede selecionada de restaurantes parceiros do círculo.</p>
+          </div>
+        </div>
+
+        <!-- 9. Degustação Mensal (mantido) -->
+        <div class="avant-row reveal">
+          <div class="avant-row__image">
+            <img src="images/benefit-08.jpg" alt="Degustação Mensal">
+          </div>
+          <div class="avant-row__content">
+            <span class="avant-row__number">09</span>
+            <h3 class="avant-row__title">Degustação Mensal Reservada</h3>
+            <p class="avant-row__text">Sessão mensal com curadoria autoral, reservada exclusivamente para o círculo. Rótulos selecionados, contexto de cada garrafa e a companhia certa.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <hr class="hr">
-
-  <!-- Pilares -->
-  <section class="section section--lg section--dark">
-    <div class="section__inner">
-      <div class="section__header reveal">
-        <h2 class="section__title">Além do vinho</h2>
-        <div class="section__divider"></div>
-        <p class="section__description">
-          O vinho é a origem. O estilo de vida apenas acompanha o primor.
-          Uma curadoria construída e apurada ao longo de anos precisa de
-          harmonia com uma vida de valor.
-        </p>
-      </div>
-
-      <div class="home-pillars">
-        <div class="home-pillar tilt-card reveal reveal--delay-1">
-          <div class="home-pillar__icon">⬦</div>
-          <h4 class="home-pillar__title">Grandes Vinhos</h4>
-          <p class="home-pillar__text">
-            Verticais históricas, safras singulares e acesso exclusivo a produtores restritos.
-          </p>
-        </div>
-        <div class="home-pillar tilt-card reveal reveal--delay-2">
-          <div class="home-pillar__icon">⬦</div>
-          <h4 class="home-pillar__title">Gastronomia</h4>
-          <p class="home-pillar__text">
-            Experiências à mesa presididas por chefs de renomada distinção, em locais de inigualável envergadura.
-          </p>
-        </div>
-        <div class="home-pillar tilt-card reveal reveal--delay-3">
-          <div class="home-pillar__icon">⬦</div>
-          <h4 class="home-pillar__title">Viagens Privadas</h4>
-          <p class="home-pillar__text">
-            Roteiros idealizados para os membros.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <hr class="hr">
 
-  <!-- Founding Members Preview -->
-  <section class="section section--lg section--dark">
+  <!-- Founding Members -->
+  <section class="section section--lg section--dark" id="founding">
     <div class="section__inner">
-      <div class="founding reveal">
+
+      <!-- Number + Text -->
+      <div class="founding reveal" style="text-align: center;">
         <div class="founding__number" data-count="100">100</div>
+        <h2 style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 300; color: var(--white); font-style: italic; margin-top: var(--space-sm);">Founding Members</h2>
         <div class="section__divider" style="margin-top: var(--space-md);"></div>
-        <p class="section__description" style="margin-top: var(--space-md);">
+        <p class="section__description" style="margin-top: var(--space-md); max-width: 600px; margin-left: auto; margin-right: auto;">
           Os Founding Members representarão o núcleo fundador do Wine's Life
           Private Members e participarão da construção da história deste
           círculo desde o início.
         </p>
-        <div style="margin-top: var(--space-lg);">
-          <a href="founding-members.html" class="btn btn--outline">Founding Members</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="hr">
-
-  <!-- Benefits Preview -->
-  <section class="section section--lg section--dark">
-    <div class="section__inner">
-      <div class="section__header reveal">
-        <h2 class="section__title">O que o círculo oferece</h2>
-        <div class="section__divider"></div>
       </div>
 
-      <div class="benefits-editorial">
+      <!-- Card + Benefits side by side -->
+      <div class="founding-card-row reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; margin-top: var(--space-xl);">
 
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-01.jpg" alt="Acesso Antecipado">
-          </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">01</span>
-            <h4 class="benefit-row__title">Acesso Antecipado</h4>
+        <!-- Card 3D -->
+        <div class="card-scene" style="perspective: 1200px; display: flex; justify-content: center; padding: 0;">
+          <div class="card-float" style="width: 100%; max-width: 525px; animation: cardFloat 6s ease-in-out infinite; cursor: pointer;">
+            <div class="card-3d" style="position: relative; transform-style: preserve-3d; animation: cardRotate 8s ease-in-out infinite;">
+              <img src="images/card wineslife sem fundo.png" alt="Wine's Life Founders Card — Nº 001" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+            </div>
           </div>
         </div>
 
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-02.jpg" alt="Vinhos Raros">
+        <!-- Benefits Table -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.04);">
+          <div style="background: var(--noir); padding: var(--space-md); text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--silver-dark); margin-bottom: var(--space-xs);">001</div>
+            <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--white); font-weight: 400; margin-bottom: 0.4rem;">Cartão Numerado</h4>
+            <p style="font-size: 0.8rem; color: var(--silver); line-height: 1.7;">Cada membro fundador recebe um cartão numerado.</p>
           </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">02</span>
-            <h4 class="benefit-row__title">Vinhos Raros</h4>
+          <div style="background: var(--noir); padding: var(--space-md); text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--silver-dark); margin-bottom: var(--space-xs);">∞</div>
+            <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--white); font-weight: 400; margin-bottom: 0.4rem;">Acesso Vitalício</h4>
+            <p style="font-size: 0.8rem; color: var(--silver); line-height: 1.7;">Participação prioritária permanente.</p>
           </div>
-        </div>
-
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-03.jpg" alt="Preço de Origem">
+          <div style="background: var(--noir); padding: var(--space-md); text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--silver-dark); margin-bottom: var(--space-xs);">I</div>
+            <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--white); font-weight: 400; margin-bottom: 0.4rem;">Participação Histórica</h4>
+            <p style="font-size: 0.8rem; color: var(--silver); line-height: 1.7;">Registro na história do círculo.</p>
           </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">03</span>
-            <h4 class="benefit-row__title">Preço de Origem</h4>
-          </div>
-        </div>
-
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-04.jpg" alt="Viagens Privadas">
-          </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">04</span>
-            <h4 class="benefit-row__title">Viagens Privadas</h4>
-          </div>
-        </div>
-
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-05.jpg" alt="Encontros Reservados">
-          </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">05</span>
-            <h4 class="benefit-row__title">Encontros Reservados</h4>
-          </div>
-        </div>
-
-        <div class="benefit-row reveal">
-          <div class="benefit-row__image">
-            <img src="images/benefit-06.jpg" alt="Concierge Pessoal">
-          </div>
-          <div class="benefit-row__content">
-            <span class="benefit-row__number">06</span>
-            <h4 class="benefit-row__title">Concierge Pessoal</h4>
+          <div style="background: var(--noir); padding: var(--space-md); text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.8rem; color: var(--silver-dark); margin-bottom: var(--space-xs);">◆</div>
+            <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--white); font-weight: 400; margin-bottom: 0.4rem;">Prioridade Absoluta</h4>
+            <p style="font-size: 0.8rem; color: var(--silver); line-height: 1.7;">Primeiro acesso a todos os serviços.</p>
           </div>
         </div>
 
       </div>
 
-      <div style="text-align: center; margin-top: var(--space-lg);">
-        <a href="benefits.html" class="btn btn--ghost">Todos os benefícios</a>
+      <!-- Text below -->
+      <div class="reveal" style="margin-top: var(--space-xl); max-width: 700px; margin-left: auto; margin-right: auto;">
+        <p style="color: var(--silver); line-height: 2; margin-bottom: var(--space-md);">
+          Os membros fundadores não são apenas os primeiros a entrar —
+          são os que edificam a estrutura. Participam das decisões sobre o
+          calendário de experiências, têm voz na curadoria e acesso
+          irrestrito a tudo o que o círculo produz e desenvolve.
+        </p>
+        <p style="color: var(--silver); line-height: 2;">
+          Conforme o crescimento da organização os Founding Members manterão
+          seu status e prioridade. Sua numeração é permanente e sua posição,
+          irrevogável.
+        </p>
       </div>
+
     </div>
   </section>
 
   <hr class="hr">
 
   <!-- Private Journeys — Horizontal Scroll -->
-  <section class="hscroll-section" id="journeysHscroll">
+  <section class="hscroll-section" id="journeys">
     <div class="hscroll-header">
       <h2 class="section__title" style="font-style: italic;">Destinos fora do mapa</h2>
+      <p class="section__description" style="margin-top: var(--space-sm); max-width: 560px; margin-left: auto; margin-right: auto;">
+        Organizadas exclusivamente para encontrar produtores e experiências que não são abertas ao público.
+      </p>
     </div>
     <div class="hscroll-wrapper">
       <div class="hscroll-track" id="journeysTrack">
@@ -491,29 +672,79 @@
             <p class="hscroll-card__region">Itália</p>
           </div>
         </div>
+        <div class="hscroll-card">
+          <div class="hscroll-card__bg" style="background: url('images/douro.jpg') center/cover no-repeat;"></div>
+          <div class="hscroll-card__content">
+            <span class="hscroll-card__number">06</span>
+            <h3 class="hscroll-card__title" data-scramble>Douro & Lisboa</h3>
+            <p class="hscroll-card__region">Portugal</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div style="text-align: center; padding: var(--space-lg) 0;">
-      <a href="journeys.html" class="btn btn--outline">Todas as Journeys</a>
     </div>
   </section>
 
   <hr class="hr">
 
-  <!-- Allocation Preview -->
-  <section class="section section--lg section--graphite">
-    <div class="section__narrow" style="text-align: center;">
+  <!-- Avant Access -->
+  <section class="section section--lg section--graphite" id="avant-access">
+    <div class="section__narrow" style="text-align: center; margin-bottom: var(--space-xl);">
       <div class="reveal">
         <h2 class="section__title" style="margin-bottom: var(--space-md); font-style: italic;">
           Avant Access
         </h2>
         <div class="section__divider"></div>
-        <p class="section__description" style="margin-bottom: var(--space-lg);">
+        <p class="section__description">
           Oferecemos aos membros prioridade total e oportunidades que
           normalmente não chegam ao mercado, além de safras históricas,
           edições limitadas e pré-alocações de produtores selecionados.
         </p>
-        <a href="allocation.html" class="btn btn--outline">Saiba Mais</a>
+      </div>
+    </div>
+
+    <div class="section__inner">
+      <div class="avant-row reveal">
+        <div class="avant-row__image">
+          <img src="images/allocation-01.jpg" alt="Vinhos Raros">
+        </div>
+        <div class="avant-row__content">
+          <span class="avant-row__number">01</span>
+          <h3 class="avant-row__title">Rótulos Especiais</h3>
+          <p class="avant-row__text">Garrafas de produtores que normalmente não exportam ou produzem em quantidades extremamente limitadas. Acesso direto a rótulos que não chegam às prateleiras.</p>
+        </div>
+      </div>
+
+      <div class="avant-row reveal">
+        <div class="avant-row__image">
+          <img src="images/allocation-02.jpg" alt="Pré-Alocações">
+        </div>
+        <div class="avant-row__content">
+          <span class="avant-row__number">02</span>
+          <h3 class="avant-row__title">Pré-Alocações</h3>
+          <p class="avant-row__text">Reserva antecipada de safras antes mesmo do lançamento oficial no mercado. Garantir sua posição nas listas mais concorridas do mundo.</p>
+        </div>
+      </div>
+
+      <div class="avant-row reveal">
+        <div class="avant-row__image">
+          <img src="images/allocation-03.jpg" alt="Safras Históricas" style="object-position: center 60%;">
+        </div>
+        <div class="avant-row__content">
+          <span class="avant-row__number">03</span>
+          <h3 class="avant-row__title">Safras Históricas</h3>
+          <p class="avant-row__text">Acesso a vintages excepcionais que já não estão disponíveis em canais convencionais. Garrafas com história, proveniência verificada e conservação impecável.</p>
+        </div>
+      </div>
+
+      <div class="avant-row reveal">
+        <div class="avant-row__image">
+          <img src="images/allocation-04.jpg" alt="Edições Limitadas">
+        </div>
+        <div class="avant-row__content">
+          <span class="avant-row__number">04</span>
+          <h3 class="avant-row__title">Edições Limitadas</h3>
+          <p class="avant-row__text">Cuvées especiais, magnums, formatos exclusivos e rótulos de produção restrita. Peças de coleção para quem entende o valor de uma peça insubstituível.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -556,34 +787,11 @@
           <img src="images/LOGOS WINES/LOGOS WINES.png" alt="Six Sport Life" class="logo-slider__logo">
         </div>
 
-        <!-- Progressive Blur — Left -->
-        <div class="progressive-blur progressive-blur--left">
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);mask-image:linear-gradient(to right,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);-webkit-mask-image:linear-gradient(to right,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);mask-image:linear-gradient(to right,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);"></div>
-        </div>
-
-        <!-- Progressive Blur — Right -->
-        <div class="progressive-blur progressive-blur--right">
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);mask-image:linear-gradient(to left,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,0) 25%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,0) 37.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 12.5%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,0) 50%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 25%,rgba(255,255,255,1) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 62.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 37.5%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,0) 75%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,0) 87.5%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(36px);-webkit-backdrop-filter:blur(36px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 62.5%,rgba(255,255,255,1) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,0) 100%);"></div>
-          <div class="progressive-blur__layer" style="backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);-webkit-mask-image:linear-gradient(to left,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);mask-image:linear-gradient(to left,rgba(255,255,255,0) 75%,rgba(255,255,255,1) 87.5%,rgba(255,255,255,1) 100%);"></div>
-        </div>
+        <!-- Fade edges -->
+        <div class="logo-slider__fade logo-slider__fade--left"></div>
+        <div class="logo-slider__fade logo-slider__fade--right"></div>
       </div>
 
-      <div style="text-align: center; margin-top: var(--space-lg);">
-        <a href="partners.html" class="btn btn--ghost">Todos os parceiros</a>
-      </div>
     </div>
   </section>
 
@@ -592,6 +800,7 @@
   <!-- Sticky Word-by-Word Section -->
   <section class="sticky-text-section" id="stickyText">
     <div class="sticky-text-wrapper">
+      <div class="sticky-text-bg"></div>
       <p class="word-by-word" id="wordByWord">
         O vinho mais raro do mundo não é raro apenas pelas uvas e rótulos. Existe o preço do vinho e o valor de como, onde e com quem se abre ela. O Private Members reflete um ambiente onde certas coisas naturalmente acontecem porque assim como água corre para o mar, os melhores vinhos sempre encontram as mãos certas.
       </p>
@@ -608,6 +817,29 @@
     </div>
   </section>
 
+  <!-- Instagram -->
+  <section class="insta-section">
+    <div class="reveal" style="text-align: center; margin-bottom: var(--space-xl);">
+      <p style="font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); margin-bottom: var(--space-sm);">Instagram</p>
+      <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" style="font-family: var(--font-body); font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 500; color: var(--white); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;">@WINESLIFE_</a>
+    </div>
+    <div class="insta-wrapper reveal">
+      <div class="insta-track" id="instaTrack">
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 2.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 3.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 4.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 5.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 6.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 7.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 8.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 9.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 10.jpg" alt="Wine's Life Instagram"></a>
+        <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener" class="insta-track__item"><img src="images/insta 11.jpg" alt="Wine's Life Instagram"></a>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer__inner">
@@ -617,31 +849,26 @@
       </div>
 
       <div>
-        <h5 class="footer__col-title">O Círculo</h5>
+        <h5 class="footer__col-title">Navegação</h5>
         <div class="footer__links">
-          <a href="manifesto.html">Manifesto</a>
-          <a href="private-members.html">O que é</a>
-          <a href="founding-members.html">Founding Members</a>
-          <a href="benefits.html">Benefícios</a>
+          <a href="about.html">Sobre Wine's Life</a>
+          <a href="acervo.html">Acervo</a>
+          <a href="#founding">Founding Partners</a>
         </div>
       </div>
 
       <div>
-        <h5 class="footer__col-title">Experiências</h5>
+        <h5 class="footer__col-title">Contato</h5>
         <div class="footer__links">
-          <a href="journeys.html">Private Journeys</a>
-          <a href="allocation.html">Allocation Program</a>
-          <a href="calendar.html">Calendário</a>
-          <a href="partners.html">Founding Partners</a>
+          <a href="mailto:contato@wineslife.com.br">contato@wineslife.com.br</a>
+          <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
 
       <div>
         <h5 class="footer__col-title">Acesso</h5>
         <div class="footer__links">
-          <a href="about.html">Sobre a Wine's Life</a>
-          <a href="card.html">O Cartão</a>
-          <a href="invite.html">Solicitar Convite</a>
+          <a href="#convite">Solicitar Convite</a>
         </div>
       </div>
     </div>
@@ -662,5 +889,194 @@
 
   <script src="js/main.js"></script>
   <script src="js/animations.js"></script>
+
+  <!-- Manifesto Modal + Smooth Scroll -->
+  <script>
+    (function(){
+      var modal = document.getElementById('manifestoModal');
+      var openBtn = document.getElementById('openManifesto');
+      var closeBtn = document.getElementById('closeManifesto');
+      var backdrop = document.getElementById('manifestoBackdrop');
+
+      function openModal(){ modal.classList.add('is-open'); document.body.style.overflow='hidden'; }
+      function closeModal(){ modal.classList.remove('is-open'); document.body.style.overflow=''; }
+
+      if(openBtn) openBtn.addEventListener('click', openModal);
+      if(closeBtn) closeBtn.addEventListener('click', closeModal);
+      if(backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+      // Logo slider — JS-driven marquee (immune to Lenis)
+      (function(){
+        var track = document.querySelector('.logo-slider__track');
+        if (!track) return;
+        var pos = 0;
+        var paused = false;
+        var half = track.scrollWidth / 2;
+        var speed = 0.5; // px per frame
+
+        track.parentElement.addEventListener('mouseenter', function(){ paused = true; });
+        track.parentElement.addEventListener('mouseleave', function(){ paused = false; });
+
+        function tick() {
+          if (!paused) {
+            pos -= speed;
+            if (pos <= -half) pos += half;
+            track.style.transform = 'translate3d(' + pos + 'px, 0, 0)';
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })();
+
+      // 3D Interactive Card
+      var scene = document.querySelector('.card-scene');
+      var card = document.querySelector('.card-3d');
+      if(scene && card){
+        var bounds;
+        scene.addEventListener('mouseenter', function(){ bounds = scene.getBoundingClientRect(); card.classList.add('is-hovering'); });
+        scene.addEventListener('mousemove', function(e){
+          if(!bounds) return;
+          var x = (e.clientX - bounds.left) / bounds.width;
+          var y = (e.clientY - bounds.top) / bounds.height;
+          card.style.transform = 'rotateY('+ ((x-0.5)*30) +'deg) rotateX('+ ((0.5-y)*20) +'deg) scale(1.04)';
+          card.style.setProperty('--shine-x', (x*100)+'%');
+          card.style.setProperty('--shine-y', (y*100)+'%');
+        });
+        scene.addEventListener('mouseleave', function(){ card.classList.remove('is-hovering'); card.style.transform=''; });
+      }
+
+      // Drag/swipe for Journeys
+      (function(){
+        var track = document.getElementById('journeysTrack');
+        if (!track) return;
+
+        var isDragging = false;
+        var startX = 0;
+        var currentX = 0;
+        var prevX = 0;
+        var velocity = 0;
+        var rafId = null;
+
+        function getMax() {
+          return -(track.scrollWidth - track.parentElement.clientWidth);
+        }
+
+        function clamp(val) {
+          return Math.max(getMax(), Math.min(0, val));
+        }
+
+        function setPosition(x) {
+          currentX = clamp(x);
+          track.style.transform = 'translateX(' + currentX + 'px)';
+        }
+
+        // Mouse events
+        track.addEventListener('mousedown', function(e) {
+          isDragging = true;
+          startX = e.clientX - currentX;
+          velocity = 0;
+          prevX = e.clientX;
+          track.classList.add('is-dragging');
+          e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+          velocity = e.clientX - prevX;
+          prevX = e.clientX;
+          setPosition(e.clientX - startX);
+        });
+
+        window.addEventListener('mouseup', function() {
+          if (!isDragging) return;
+          isDragging = false;
+          track.classList.remove('is-dragging');
+          // Momentum
+          function momentum() {
+            if (Math.abs(velocity) < 0.5) return;
+            velocity *= 0.92;
+            setPosition(currentX + velocity);
+            rafId = requestAnimationFrame(momentum);
+          }
+          if (rafId) cancelAnimationFrame(rafId);
+          momentum();
+        });
+
+        // Touch events
+        track.addEventListener('touchstart', function(e) {
+          isDragging = true;
+          startX = e.touches[0].clientX - currentX;
+          velocity = 0;
+          prevX = e.touches[0].clientX;
+          track.classList.add('is-dragging');
+          if (rafId) cancelAnimationFrame(rafId);
+        }, {passive: true});
+
+        track.addEventListener('touchmove', function(e) {
+          if (!isDragging) return;
+          velocity = e.touches[0].clientX - prevX;
+          prevX = e.touches[0].clientX;
+          setPosition(e.touches[0].clientX - startX);
+        }, {passive: true});
+
+        track.addEventListener('touchend', function() {
+          isDragging = false;
+          track.classList.remove('is-dragging');
+          function momentum() {
+            if (Math.abs(velocity) < 0.5) return;
+            velocity *= 0.92;
+            setPosition(currentX + velocity);
+            rafId = requestAnimationFrame(momentum);
+          }
+          if (rafId) cancelAnimationFrame(rafId);
+          momentum();
+        });
+
+        // Prevent link clicks during drag
+        track.addEventListener('click', function(e) {
+          if (Math.abs(velocity) > 2) e.preventDefault();
+        }, true);
+      })();
+
+      // Drag/swipe for Instagram
+      (function(){
+        var track = document.getElementById('instaTrack');
+        if (!track) return;
+        var isDragging = false, startX = 0, currentX = 0, prevX = 0, velocity = 0, rafId = null;
+        function getMax(){ return -(track.scrollWidth - track.parentElement.clientWidth); }
+        function clamp(val){ return Math.max(getMax(), Math.min(0, val)); }
+        function setPos(x){ currentX = clamp(x); track.style.transform = 'translateX(' + currentX + 'px)'; }
+        track.addEventListener('mousedown', function(e){ isDragging = true; startX = e.clientX - currentX; velocity = 0; prevX = e.clientX; track.classList.add('is-dragging'); e.preventDefault(); });
+        window.addEventListener('mousemove', function(e){ if(!isDragging) return; velocity = e.clientX - prevX; prevX = e.clientX; setPos(e.clientX - startX); });
+        window.addEventListener('mouseup', function(){ if(!isDragging) return; isDragging = false; track.classList.remove('is-dragging'); function m(){ if(Math.abs(velocity)<0.5) return; velocity*=0.92; setPos(currentX+velocity); rafId=requestAnimationFrame(m); } if(rafId) cancelAnimationFrame(rafId); m(); });
+        track.addEventListener('touchstart', function(e){ isDragging=true; startX=e.touches[0].clientX-currentX; velocity=0; prevX=e.touches[0].clientX; track.classList.add('is-dragging'); if(rafId) cancelAnimationFrame(rafId); }, {passive:true});
+        track.addEventListener('touchmove', function(e){ if(!isDragging) return; velocity=e.touches[0].clientX-prevX; prevX=e.touches[0].clientX; setPos(e.touches[0].clientX-startX); }, {passive:true});
+        track.addEventListener('touchend', function(){ isDragging=false; track.classList.remove('is-dragging'); function m(){ if(Math.abs(velocity)<0.5) return; velocity*=0.92; setPos(currentX+velocity); rafId=requestAnimationFrame(m); } if(rafId) cancelAnimationFrame(rafId); m(); });
+        track.addEventListener('click', function(e){ if(Math.abs(velocity)>2) e.preventDefault(); }, true);
+      })();
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var target = document.querySelector(this.getAttribute('href'));
+          if(target){
+            e.preventDefault();
+            // Close mobile menu if open
+            var mobileMenu = document.querySelector('.nav__mobile-menu');
+            if(mobileMenu) mobileMenu.classList.remove('is-open');
+            var toggle = document.querySelector('.nav__toggle');
+            if(toggle) toggle.classList.remove('is-open');
+
+            if(window.lenis){
+              window.lenis.scrollTo(target, {offset: -80});
+            } else {
+              target.scrollIntoView({behavior:'smooth', block:'start'});
+            }
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

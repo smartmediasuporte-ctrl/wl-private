@@ -8,6 +8,194 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15) 5%, rgba(255,255,255,0.15) 95%, transparent);
+    }
+
+    /* Each timeline block */
+    .timeline__block {
+      position: relative;
+      padding-left: clamp(2.5rem, 4vw, 4rem);
+      padding-bottom: clamp(4rem, 6vw, 6rem);
+    }
+
+    .timeline__block:last-child {
+      padding-bottom: 0;
+    }
+
+    /* Dot on the line */
+    .timeline__block::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.4);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .timeline__block.is-visible::before {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(255,255,255,0.7);
+      box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    }
+
+    /* Year / era label */
+    .timeline__era {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+    }
+
+    /* Section headings */
+    .timeline__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white);
+      margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+      line-height: 1.3;
+    }
+
+    /* Body text */
+    .timeline__text {
+      color: var(--silver);
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline__text:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Highlight / italic accent text */
+    .timeline__accent {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--silver-light);
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      line-height: 2;
+    }
+
+    /* Wine list */
+    .timeline__list {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--silver-light);
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      line-height: 2.4;
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Quote block */
+    .timeline__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+      text-align: center;
+      padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2.5rem);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin: 1.5rem 0;
+    }
+
+    /* Large intro text */
+    .about-intro__lead {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-style: italic;
+      color: var(--silver-light);
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    .about-intro__headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: var(--space-xl);
+    }
+
+    .about-intro__body {
+      color: var(--silver);
+      font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+      line-height: 2.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-intro__close {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-style: italic;
+      color: var(--silver-light);
+      line-height: 1.8;
+      margin-top: var(--space-lg);
+    }
+
+    /* Closing statement */
+    .timeline__closing {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+      text-align: center;
+      padding: var(--space-md) 0;
+    }
+
+    /* Line progress animation */
+    .timeline__progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2));
+      transition: height 0.1s linear;
+      z-index: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline {
+        padding-left: 0.5rem;
+      }
+      .timeline__block {
+        padding-left: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -17,72 +205,179 @@
       <span class="nav__logo-text">Private Members</span>
     </a>
     <div class="nav__links">
-      <a href="manifesto.html" class="nav__link">Manifesto</a>
-      <a href="private-members.html" class="nav__link">O Círculo</a>
-      <a href="founding-members.html" class="nav__link">Founding Members</a>
-      <a href="journeys.html" class="nav__link">Journeys</a>
-      <a href="acervo.html" class="nav__link">Acervo</a>
-      <a href="about.html" class="nav__link">Sobre</a>
-      <a href="invite.html" class="nav__cta">Solicitar Convite</a>
+      <a href="index.html#manifesto" class="nav__link">Manifesto</a>
+      <a href="index.html#circulo" class="nav__link">Círculo</a>
+      <a href="index.html#founding" class="nav__link">Founding Members</a>
+      <a href="index.html#journeys" class="nav__link">Journeys</a>
+      <a href="index.html#avant-access" class="nav__link">Avant Access</a>
+      <a href="index.html#convite" class="nav__cta">Solicitar Convite</a>
     </div>
     <div class="nav__toggle"><span></span><span></span><span></span></div>
   </nav>
 
   <div class="nav__mobile-menu">
-    <a href="index.html">Home</a><a href="manifesto.html">Manifesto</a><a href="private-members.html">O Círculo</a><a href="founding-members.html">Founding Members</a><a href="journeys.html">Private Journeys</a><a href="acervo.html">Acervo</a><a href="about.html">Sobre</a><a href="invite.html">Solicitar Convite</a>
+    <a href="index.html">Home</a><a href="index.html#manifesto">Manifesto</a><a href="index.html#circulo">Círculo</a><a href="index.html#founding">Founding Members</a><a href="index.html#journeys">Journeys</a><a href="index.html#avant-access">Avant Access</a><a href="index.html#convite">Solicitar Convite</a>
   </div>
 
   <section class="page-header" style="padding-left: var(--space-md); padding-right: var(--space-md);">
     <p class="section__eyebrow reveal">Wine's Life</p>
-    <h1 class="section__title reveal" style="font-style: italic;">"O vinho tem o poder<br>de unir as pessoas"</h1>
+    <h1 class="section__title reveal" style="font-style: italic;">Sobre</h1>
     <div class="section__divider reveal"></div>
-    <p class="section__description reveal">
-      Uma trajetória dedicada a vinhos premium, atendimento personalizado
-      e experiências enogastronômicas exclusivas — onde cada encontro
-      reforça a essência que nos move.
-    </p>
   </section>
 
   <section class="section section--lg section--dark">
     <div class="section__narrow">
 
-      <div class="reveal">
-        <p style="font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; color: var(--silver-light); line-height: 1.8; margin-bottom: var(--space-lg);">
-          A Wine's Life nasceu em Brasília com a missão de oferecer vinhos premium,
-          com atendimento personalizado, e proporcionar experiências enogastronômicas
-          exclusivas.
+      <!-- Intro (sem timeline) -->
+      <div class="reveal" style="margin-bottom: var(--space-xl);">
+        <p class="about-intro__lead">
+          A Wine's Life nasceu de uma convicção simples:
         </p>
-        <p style="color: var(--silver); line-height: 2; margin-bottom: var(--space-lg);">
-          Nosso propósito é reunir e conectar amigos e clientes que compartilhem a
-          paixão e o respeito pela arte do vinho. Acreditamos que
-          <em style="color: var(--silver-light);">"o vinho tem o poder de unir as pessoas"</em>,
-          e cada evento reforça essa essência que nos move.
+        <p class="about-intro__headline">
+          o vinho tem o poder de unir pessoas.
         </p>
-        <p style="color: var(--silver); line-height: 2; margin-bottom: var(--space-lg);">
-          Nossa trajetória é marcada por momentos únicos: realizamos algumas das
-          mais célebres degustações verticais do mundo, incluindo ícones como
-          Romanée-Conti, Pétrus, Château Angélus, Château Margaux, Opus One,
-          Sassicaia, Silver Oak, Don Melchor, Almaviva, Valbuena, Pêra-Manca,
-          Seña e Gandolini.
+        <p class="about-intro__body">
+          Desde o início, a proposta nunca foi apenas comercializar rótulos ou organizar degustações. A Wine's Life surgiu com o propósito de criar experiências verdadeiras ao redor da mesa, aproximando pessoas que compartilham interesse por cultura, gastronomia e momentos bem vividos.
         </p>
-        <p style="color: var(--silver); line-height: 2; margin-bottom: var(--space-lg);">
-          Essas experiências são enriquecidas pela presença de enólogos e das
-          vinícolas, criando um diálogo direto entre terroir e taça.
+        <p class="about-intro__body">
+          Ao longo dos anos, esse propósito se consolidou naturalmente por meio de encontros cuidadosamente organizados, degustações especiais e experiências que passaram a reunir um público cada vez mais conectado entre si.
         </p>
-        <p style="color: var(--silver); line-height: 2; margin-bottom: var(--space-lg);">
-          Tudo isso em cenários de pura sofisticação, como os renomados hotéis
-          Palácio Tangará, Rosewood, Copacabana Palace e Fasano, com menus
-          elaborados por chefs de grande prestígio que harmonizam a alta
-          gastronomia aos grandes vinhos.
-        </p>
-        <p style="font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.5rem); font-style: italic; color: var(--silver-light); line-height: 1.8; margin-top: var(--space-xl);">
-          Cada taça erguida celebra, além do vinho, os laços que ele inspira.
-          <br><span style="color: var(--white);">À união, à paixão e à excelência.</span>
+        <p class="about-intro__close">
+          Mais do que eventos, formou-se uma comunidade.
         </p>
       </div>
 
+      <div class="section__divider" style="margin: var(--space-xl) auto;"></div>
+
+      <!-- Timeline -->
+      <div class="timeline">
+        <div class="timeline__progress"></div>
+
+        <!-- 01 — Primeiros encontros -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo I</div>
+          <h2 class="timeline__title">Primeiros encontros</h2>
+          <p class="timeline__text">
+            Nos primeiros anos, a Wine's Life começou reunindo pequenos grupos de clientes e amigos em experiências reservadas, com foco na descoberta de grandes rótulos e na construção de convivência ao redor da mesa.
+          </p>
+          <p class="timeline__text">
+            Rapidamente ficou evidente que não se tratava apenas de degustações.
+          </p>
+          <p class="timeline__text">
+            Estava nascendo uma rede de relacionamento baseada em confiança, afinidade cultural e interesse genuíno pelo universo do vinho.
+          </p>
+          <p class="timeline__text">
+            Desde o início, a curadoria da Wine's Life foi construída com independência, proximidade com seus clientes e atenção aos detalhes que transformam encontros em experiências memoráveis.
+          </p>
+        </div>
+
+        <!-- 02 — Consolidação -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo II</div>
+          <h2 class="timeline__title">Consolidação da curadoria</h2>
+          <p class="timeline__text">
+            Com o amadurecimento do projeto, a Wine's Life passou a organizar experiências com alguns dos rótulos mais emblemáticos do mundo, incluindo encontros com vinhos de propriedades históricas como:
+          </p>
+          <div class="timeline__list">
+            Domaine de la Romanée-Conti<br>
+            Pétrus<br>
+            Château Margaux<br>
+            Château Angelus<br>
+            Opus One<br>
+            Almaviva
+          </div>
+          <p class="timeline__text">
+            e grandes maisons de Champagne como:
+          </p>
+          <div class="timeline__list">
+            Krug<br>
+            Dom Pérignon<br>
+            Ruinart<br>
+            Rare Champagne
+          </div>
+          <p class="timeline__text">
+            Esses encontros marcaram uma nova etapa da trajetória da Wine's Life: experiências que ultrapassam o padrão tradicional de degustações realizadas no Brasil e que normalmente são restritas a círculos muito específicos mesmo nos grandes centros internacionais.
+          </p>
+          <p class="timeline__text">
+            Além das degustações pontuais, a Wine's Life passou a conduzir verticais históricas e encontros temáticos com safras raras, construídos com atenção à evolução do tempo dentro da garrafa e à experiência coletiva ao redor da mesa.
+          </p>
+        </div>
+
+        <!-- 03 — Comunidade -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo III</div>
+          <h2 class="timeline__title">A construção de uma comunidade</h2>
+          <p class="timeline__text">
+            Com o passar dos anos, algo maior começou a acontecer de forma natural:
+          </p>
+          <div class="timeline__list">
+            clientes tornaram-se amigos<br>
+            encontros tornaram-se tradição<br>
+            degustações tornaram-se memória
+          </div>
+          <p class="timeline__text">
+            A Wine's Life deixou de ser apenas uma agenda de experiências.
+          </p>
+          <p class="timeline__text">
+            Passou a ser um ponto de encontro entre pessoas com afinidade cultural e interesse genuíno por experiências raras.
+          </p>
+        </div>
+
+        <!-- 04 — Princípio -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo IV</div>
+          <h2 class="timeline__title">Um princípio que orienta a trajetória</h2>
+          <p class="timeline__text">
+            Desde cedo, a Wine's Life passou a seguir uma ideia simples e poderosa inspirada em Walt Disney:
+          </p>
+          <div class="timeline__quote">
+            "Procuro fazer coisas impossíveis porque lá a concorrência é menor."
+          </div>
+          <p class="timeline__text">
+            Essa frase passou a orientar a busca por experiências raras, encontros inéditos e degustações que normalmente não fazem parte do calendário tradicional do vinho.
+          </p>
+          <p class="timeline__accent">
+            Ela traduz o espírito da Wine's Life: buscar o extraordinário com naturalidade.
+          </p>
+        </div>
+
+        <!-- 05 — Maturidade -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo V</div>
+          <h2 class="timeline__title">A maturidade do projeto</h2>
+          <p class="timeline__text">
+            Após anos organizando experiências únicas com grandes vinhos, a Wine's Life alcançou um novo estágio de maturidade, marcado pela consolidação de:
+          </p>
+          <div class="timeline__list">
+            uma curadoria independente<br>
+            uma rede de relacionamento sólida<br>
+            acesso a rótulos históricos<br>
+            e a confiança de um público que acompanha essa trajetória desde o início
+          </div>
+          <p class="timeline__text">
+            Foi nesse ambiente que surgiu, de forma natural, o próximo passo da história da Wine's Life.
+          </p>
+        </div>
+
+        <!-- 06 — Private Members -->
+        <div class="timeline__block reveal">
+          <div class="timeline__era">Capítulo VI</div>
+          <h2 class="timeline__title">O nascimento do Wine's Life Private Members</h2>
+          <p class="timeline__text">
+            A criação do Wine's Life Private Members representa a evolução dessa trajetória.
+          </p>
+          <p class="timeline__text">
+            Mais do que um clube, trata-se de um círculo privado formado inicialmente por apenas 100 Founding Members, criado para aproximar ainda mais aqueles que caminham com a Wine's Life desde o início e que passam a ter acesso prioritário às experiências, listas de vinhos raros e viagens internacionais organizadas pela curadoria Wine's Life.
+          </p>
+          <p class="timeline__closing">
+            O Private Members nasce da continuidade de uma história construída ao redor do vinho — e, principalmente, ao redor das pessoas.
+          </p>
+        </div>
+
+      </div><!-- /timeline -->
+
       <div style="text-align: center; margin-top: var(--space-xl);" class="reveal">
-        <a href="invite.html" class="btn btn--primary">Solicitar Convite</a>
+        <a href="index.html#convite" class="btn btn--primary">Solicitar Convite</a>
       </div>
 
     </div>
@@ -90,14 +385,72 @@
 
   <footer class="footer">
     <div class="footer__inner">
-      <div class="footer__brand"><img src="images/logo wines semfundo.png" alt="Wine's Life"><p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p></div>
-      <div><h5 class="footer__col-title">O Círculo</h5><div class="footer__links"><a href="manifesto.html">Manifesto</a><a href="private-members.html">O que é</a><a href="founding-members.html">Founding Members</a><a href="benefits.html">Benefícios</a></div></div>
-      <div><h5 class="footer__col-title">Experiências</h5><div class="footer__links"><a href="journeys.html">Private Journeys</a><a href="allocation.html">Allocation Program</a><a href="calendar.html">Calendário</a><a href="partners.html">Founding Partners</a></div></div>
-      <div><h5 class="footer__col-title">Acesso</h5><div class="footer__links"><a href="about.html">Sobre a Wine's Life</a><a href="card.html">O Cartão</a><a href="invite.html">Solicitar Convite</a></div></div>
+      <div class="footer__brand">
+        <img src="images/logo wines semfundo.png" alt="Wine's Life">
+        <p>Um círculo privado dedicado a experiências raras, grandes vinhos e encontros que não se repetem.</p>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Navegação</h5>
+        <div class="footer__links">
+          <a href="about.html">Sobre Wine's Life</a>
+          <a href="acervo.html">Acervo</a>
+          <a href="index.html#founding">Founding Partners</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Contato</h5>
+        <div class="footer__links">
+          <a href="mailto:contato@wineslife.com.br">contato@wineslife.com.br</a>
+          <a href="https://www.instagram.com/wineslife_/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer__col-title">Acesso</h5>
+        <div class="footer__links">
+          <a href="index.html#convite">Solicitar Convite</a>
+        </div>
+      </div>
     </div>
     <div class="footer__bottom"><p class="footer__copy">&copy; 2026 Wine's Life. Todos os direitos reservados.</p><div class="footer__legal"><a href="#">Privacidade</a><a href="#">Termos</a></div></div>
   </footer>
 
   <script src="js/main.js"></script>
+
+  <script>
+    /* ── Timeline progress line + dot activation ── */
+    (function() {
+      var timeline = document.querySelector('.timeline');
+      var progress = document.querySelector('.timeline__progress');
+      var blocks = document.querySelectorAll('.timeline__block');
+      if (!timeline || !progress) return;
+
+      function updateTimeline() {
+        var rect = timeline.getBoundingClientRect();
+        var timelineTop = rect.top;
+        var timelineHeight = rect.height;
+        var viewportH = window.innerHeight;
+
+        // Progress: how far the viewport center has traveled through the timeline
+        var trigger = viewportH * 0.6;
+        var scrolled = trigger - timelineTop;
+        var pct = Math.max(0, Math.min(1, scrolled / timelineHeight));
+        progress.style.height = (pct * 100) + '%';
+
+        // Activate dots
+        blocks.forEach(function(block) {
+          var bRect = block.getBoundingClientRect();
+          if (bRect.top < trigger) {
+            block.classList.add('is-visible');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateTimeline, { passive: true });
+      updateTimeline();
+    })();
+  </script>
 </body>
 </html>

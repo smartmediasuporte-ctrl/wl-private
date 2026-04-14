@@ -621,15 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // ========== LOGO SLIDER — SCROLL-REACTIVE SPEED ==========
-    const logoTrack = document.querySelector('.logo-slider__track');
-    if (logoTrack) {
-      let baseSpeed = 35; // matches CSS animation-duration
-      lenis.on('scroll', ({ velocity }) => {
-        const speed = Math.max(8, baseSpeed - Math.abs(velocity) * 0.5);
-        logoTrack.style.animationDuration = speed + 's';
-      });
-    }
+    // Logo slider — pure CSS animation, no scroll interference
 
     // ========== PARALLAX DEPTH LAYERS ==========
     // Eyebrows move slower, titles move faster — creates depth
