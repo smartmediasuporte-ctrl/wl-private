@@ -1801,10 +1801,13 @@ html.lenis, html.lenis body {
   .avant-row {
     grid-template-columns: 1fr;
     min-height: auto;
+    margin-left: calc(-1 * clamp(1.5rem, 5vw, 4rem));
+    margin-right: calc(-1 * clamp(1.5rem, 5vw, 4rem));
   }
 
   .avant-row__image {
     aspect-ratio: 16/10;
+    width: 100%;
   }
 
   .avant-row:nth-child(even) .avant-row__image {
@@ -1816,7 +1819,7 @@ html.lenis, html.lenis body {
   }
 
   .avant-row__content {
-    padding: var(--space-md);
+    padding: var(--space-md) clamp(1.5rem, 5vw, 4rem);
   }
 }
 
