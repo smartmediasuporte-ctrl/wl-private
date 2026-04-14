@@ -1285,6 +1285,10 @@ p {
     font-size: clamp(2rem, 8vw, 3rem);
   }
 
+  .hero + .section--lg {
+    padding-top: var(--space-md);
+  }
+
   .benefits-grid {
     grid-template-columns: 1fr;
   }
