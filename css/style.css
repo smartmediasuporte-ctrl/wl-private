@@ -1849,6 +1849,7 @@ html.lenis, html.lenis body {
   top: 0;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0 clamp(2rem, 8vw, 10rem);
